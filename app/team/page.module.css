@@ -1,0 +1,305 @@
+.teamPage {
+  min-height: 100vh;
+  background: #000;
+  color: white;
+}
+
+.section {
+  padding: 4rem 1.5rem;
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.headerLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 1rem;
+}
+
+.headerTitle {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.headerTitleAccent {
+  color: #f97316;
+}
+
+.yearNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.yearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(16px);
+}
+
+.yearButton:hover:not(:disabled) {
+  border-color: rgba(249, 115, 22, 0.5);
+  background: rgba(249, 115, 22, 0.1);
+  transform: translateY(-0.125rem);
+}
+
+.yearButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.yearDisplay {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  min-width: 8rem;
+  text-align: center;
+}
+
+.domainSection {
+  margin-bottom: 4rem;
+}
+
+.domainSection:last-child {
+  margin-bottom: 0;
+}
+
+.domainHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.domainIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.domainTitle {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.domainCount {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 280px);
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.headsRow {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Faculty - center the 2 cards */
+.facultyHeads {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Core Team - 2x2 grid for all 4 members */
+.coreHeads {
+  display: grid;
+  grid-template-columns: repeat(2, 280px);
+  gap: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-items: center;
+}
+
+@media (max-width: 639px) {
+  .coreHeads {
+    grid-template-columns: 280px;
+  }
+}
+
+/* Executives Grid */
+.executivesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 280px);
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Core executives - if any, use 2-column layout */
+.coreExecutives {
+  grid-template-columns: repeat(2, 280px);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-items: center;
+}
+
+@media (max-width: 639px) {
+  .coreExecutives {
+    grid-template-columns: 280px;
+  }
+}
+
+.memberCard {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  text-align: center;
+  width: 280px;
+  max-width: 280px;
+}
+
+.memberCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.memberCard:hover {
+  border-color: rgba(249, 115, 22, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0 35px rgba(249, 115, 22, 0.15);
+}
+
+.memberCard:hover::before {
+  opacity: 1;
+}
+
+.memberAvatar {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.memberName {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.memberRole {
+  font-size: 0.875rem;
+  color: #f97316;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.memberSocials {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  border-color: rgba(249, 115, 22, 0.5);
+  background: rgba(249, 115, 22, 0.1);
+  color: #f97316;
+  transform: translateY(-0.125rem);
+}
+
+.socialLink svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
