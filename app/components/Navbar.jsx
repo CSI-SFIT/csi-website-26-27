@@ -18,6 +18,7 @@ const navItems = [
   { name: "Team", href: "/team" },
   { name: "Gallery", href: "/gallery" },
   { name: "Magazine", href: "/magazine" },
+  { name: "Membership", href: "/membership" },
   { name: "Sponsors", href: "/sponsors" },
   { name: "Contact", href: "/contact" },
 ];

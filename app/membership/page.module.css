@@ -1,0 +1,681 @@
+/* ==========================================================
+   CSI-SFIT — Membership page
+   Palette: home-page inspired black/orange theme
+   ========================================================== */
+
+.page {
+  --bg: #000000;
+  --bg-raised: #111111;
+  --card: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --accent: #f97316;
+  --accent-strong: #fb923c;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.7);
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+}
+
+.page :is(h1, h2, h3) {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.hero {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem 4rem;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(249, 115, 22, 0.18), transparent 70%),
+    var(--bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.heroBg,
+.heroGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.heroBg {
+  background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 50%, transparent);
+  opacity: 0.35;
+}
+
+.heroGlow {
+  background: radial-gradient(circle at top, rgba(249, 115, 22, 0.2), transparent 55%);
+}
+
+.eyebrow,
+.eyebrowSmall {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.eyebrow {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.eyebrowDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px 2px rgba(249, 115, 22, 0.7);
+}
+
+.heroTitle {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(2.2rem, 5.5vw, 3.7rem);
+  line-height: 1.1;
+  text-align: center;
+  max-width: 48rem;
+  margin-top: 1rem;
+}
+
+.gradientText {
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heroSub {
+  position: relative;
+  z-index: 1;
+  max-width: 40rem;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-top: 1rem;
+}
+
+.heroStats {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  width: min(100%, 62rem);
+  margin-top: 2rem;
+}
+
+.stat {
+  padding: 1.1rem 1rem;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.statValue {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.statLabel {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.tiersSection,
+.benefitsSection,
+.faqSection,
+.ctaSection {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 0;
+}
+
+.sectionHead {
+  text-align: center;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+}
+
+.sectionSub {
+  max-width: 38rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.tiersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.tierCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.6rem;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent), var(--card);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(2, 8, 23, 0.25);
+}
+
+.tierPopular {
+  border-color: rgba(249, 115, 22, 0.45);
+  transform: translateY(-4px);
+}
+
+.popularBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  color: var(--accent-strong);
+  background: rgba(249, 115, 22, 0.14);
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+}
+
+.tierIconWrap {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: white;
+}
+
+.tierIcon {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.tierContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.tierName {
+  font-size: 1.2rem;
+}
+
+.tierSubtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.tierPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.period {
+  color: var(--muted);
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.featureCheck {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 0.14rem;
+}
+
+.tierCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.tierCta:hover {
+  transform: translateY(-2px);
+}
+
+.ctaPrimary,
+.ctaPrimaryBtn {
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  color: #000000;
+}
+
+.ctaSecondary,
+.ctaSecondaryBtn {
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.formSection {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 0;
+}
+
+.formLayout {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.formCard,
+.reasonCard {
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  border-radius: 20px;
+  padding: 1.4rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.input,
+.select {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(8, 8, 8, 0.95);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 0.8rem 0.9rem;
+  outline: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: #9aa4b2;
+}
+
+.select option {
+  background: #111111;
+  color: #ffffff;
+}
+
+.input:focus,
+.select:focus {
+  border-color: rgba(249, 115, 22, 0.45);
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.18);
+}
+
+.interestSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.interestGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.interestChip {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.interestChipActive {
+  border-color: rgba(249, 115, 22, 0.45);
+  background: rgba(249, 115, 22, 0.16);
+  color: var(--accent-strong);
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.checkboxRow input {
+  accent-color: var(--accent);
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.9rem 1rem;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  color: #000000;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reasonTitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.reasonList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.reasonItem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.reasonIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(249, 115, 22, 0.14);
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.reasonHeading {
+  font-size: 0.98rem;
+  margin-bottom: 0.2rem;
+}
+
+.reasonText {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.benefitCard {
+  padding: 1.4rem;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  border-radius: 16px;
+}
+
+.benefitIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.8rem;
+  color: var(--accent);
+  background: rgba(249, 115, 22, 0.14);
+}
+
+.benefitTitle {
+  font-size: 1.04rem;
+  margin-bottom: 0.45rem;
+}
+
+.benefitDesc {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.faqGrid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.faqCard {
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.faqQuestion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.faqQuestionText {
+  font-weight: 600;
+}
+
+.faqIcon {
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.faqIconOpen {
+  transform: rotate(180deg);
+  color: var(--cyan);
+}
+
+.helpIcon {
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+.faqAnswer {
+  padding: 0 1.15rem 1rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.ctaCard {
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.12), rgba(59, 130, 246, 0.08)), var(--card);
+  border-radius: 24px;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.ctaGlow {
+  position: absolute;
+  inset: auto 10% 0 auto;
+  width: 14rem;
+  height: 14rem;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.18), transparent 70%);
+  pointer-events: none;
+}
+
+.ctaTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 0.5rem;
+}
+
+.ctaDesc {
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.ctaPrimaryBtn,
+.ctaSecondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ctaNote {
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+.emailLink {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.scrollTop {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  color: #000000;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.25);
+  z-index: 20;
+}
+
+@media (max-width: 980px) {
+  .tiersGrid,
+  .benefitsGrid,
+  .formLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .heroStats,
+  .formGrid,
+  .interestGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 5rem;
+  }
+
+  .ctaCard {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroStats,
+  .formGrid,
+  .interestGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tierCard,
+  .benefitCard,
+  .ctaCard {
+    padding: 1.2rem;
+  }
+}
