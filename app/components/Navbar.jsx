@@ -100,7 +100,7 @@ export default function Navbar() {
                   h-0.5
                   w-full
                   rounded-full
-                  bg-cyan-300
+                  bg-orange-500
                   scale-x-0
                   origin-right
                   transition-transform
@@ -118,7 +118,7 @@ export default function Navbar() {
                   -bottom-1.5
                   h-0.5
                   w-full
-                  bg-cyan-300/50
+                  bg-orange-500/50
                   blur-sm
                   scale-x-0
                   origin-right
@@ -194,7 +194,7 @@ export default function Navbar() {
                   bottom-2
                   h-0.5
                   w-[calc(100%-3rem)]
-                  bg-cyan-300
+                  bg-orange-500
                   scale-x-0
                   origin-right
                   transition-transform
