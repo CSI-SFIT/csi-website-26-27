@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
+import { BlurFade } from "../../components/ui/blur-fade.jsx";
 
 const galleryItems = [
   // --- CSI DAY ---
@@ -186,12 +187,23 @@ export default function GalleryPage() {
 
   return (
     <div className={styles.galleryContainer}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>
-          Our <span className={styles.highlight}>Gallery</span>
-        </h1>
-        <p className={styles.subtitle}>Glimpses of our events, workshops, and memories.</p>
-      </header>
+      <section className={styles.hero}>
+  <BlurFade delay={0.1} inView>
+    <div className={styles.heroLabel}>Explore</div>
+  </BlurFade>
+
+  <BlurFade delay={0.2} inView>
+    <h1 className={styles.heroTitle}>
+      Our <span className={styles.highlight}>Gallery</span>
+    </h1>
+  </BlurFade>
+
+  <BlurFade delay={0.3} inView>
+    <p className={styles.heroSub}>
+      Glimpses of our events, workshops, and memories.
+    </p>
+  </BlurFade>
+</section>
 
       <div className={styles.filterContainer}>
         {categories.map((category) => (
