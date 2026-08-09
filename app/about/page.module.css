@@ -1,377 +1,786 @@
 /* ==========================================================
-   CSI-SFIT — About page
-   Palette: near-black navy base, cyan/teal neon accent
-   Type: Space Grotesk (display) + Inter (body)
+   CSI-SFIT — About Page
+   Palette: near-black base + orange accent
+   Type: Inter (display) + Lato (body)
    ========================================================== */
 
 .page {
-  --bg: #05070d;
-  --bg-raised: #0b1220;
-  --card: rgba(15, 23, 42, 0.55);
-  --card-border: rgba(94, 234, 212, 0.16);
-  --cyan: #22d3ee;
-  --teal: #5eead4;
-  --blue: #3b82f6;
-  --text: #e6edf5;
-  --muted: #93a4b8;
+  --bg: #000;
+  --bg-raised: #0a0a0a;
+  --card: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.08);
+
+  --orange: #f97316;
+
+  --text: #fff;
+  --muted: rgba(255, 255, 255, 0.6);
+
+  min-height: 100vh;
+  width: 100%;
 
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+
+  font-family: var(--font-lato), sans-serif;
+
   overflow-x: hidden;
 }
 
 .page :is(h1, h2, h3) {
-  font-family: 'Space Grotesk', 'Inter', sans-serif;
-  font-weight: 600;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 700;
   letter-spacing: -0.01em;
   margin: 0;
 }
 
-/* ---------------- Hero ---------------- */
+/* ==========================================================
+   HERO
+   ========================================================== */
 
 .hero {
   position: relative;
+
   min-height: 78vh;
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 1.5rem 4rem;
+
+  padding: 7rem 1.5rem 5rem;
+
+  text-align: center;
+
+  overflow: hidden;
+
   background:
-    radial-gradient(60% 50% at 50% 0%, rgba(34, 211, 238, 0.14), transparent 70%),
+    radial-gradient(
+      60% 55% at 50% 0%,
+      rgba(249, 115, 22, 0.14),
+      transparent 70%
+    ),
     var(--bg);
-  border-bottom: 1px solid rgba(94, 234, 212, 0.08);
+
+  border-bottom: 1px solid rgba(249, 115, 22, 0.08);
 }
 
-.field {
+.heroGlow {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+
+  top: -45%;
+  left: 50%;
+
+  width: 700px;
+  height: 700px;
+
+  transform: translateX(-50%);
+
+  background: radial-gradient(
+    circle,
+    rgba(249, 115, 22, 0.13) 0%,
+    transparent 70%
+  );
+
+  pointer-events: none;
+
+  animation: glowPulse 4s ease-in-out infinite alternate;
 }
 
 .heroInner {
   position: relative;
   z-index: 1;
+
+  width: 100%;
   max-width: 46rem;
-  text-align: center;
+
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+
+  text-align: center;
 }
 
-.eyebrow {
+.heroLabel {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--teal);
-  border: 1px solid var(--card-border);
-  background: var(--card);
-  backdrop-filter: blur(8px);
-  padding: 0.45rem 1rem;
-  border-radius: 999px;
-}
+  justify-content: center;
 
-.eyebrowDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 8px 2px rgba(34, 211, 238, 0.7);
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+
+  color: var(--orange);
+
+  background: rgba(249, 115, 22, 0.1);
+
+  border: 1px solid rgba(249, 115, 22, 0.2);
+
+  padding: 0.4rem 1.1rem;
+
+  border-radius: 9999px;
+
+  margin-bottom: 1.5rem;
 }
 
 .heroTitle {
-  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
-  line-height: 1.1;
+  width: 100%;
+
+  font-family: var(--font-inter), sans-serif;
+
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 800;
+
+  line-height: 1.08;
+
+  letter-spacing: -0.04em;
+
   color: var(--text);
+
+  margin: 0;
 }
 
-.gradientText {
-  background: linear-gradient(90deg, var(--cyan), var(--blue) 70%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.highlight {
+  color: var(--orange);
 }
 
-.heroCopy {
+.heroSub {
+  width: 100%;
+  max-width: 560px;
+
+  margin: 1.25rem auto 0;
+
   font-size: 1.05rem;
-  line-height: 1.7;
+
+  line-height: 1.65;
+
   color: var(--muted);
-  max-width: 38rem;
 }
 
 .badgeRow {
+  width: 100%;
+
   display: flex;
   flex-wrap: wrap;
+
   gap: 0.6rem;
+
   justify-content: center;
-  margin-top: 0.5rem;
+
+  margin-top: 1.5rem;
 }
 
 .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 100%;
+
   font-size: 0.78rem;
-  color: var(--text);
-  border: 1px solid var(--card-border);
+
+  color: rgba(255, 255, 255, 0.75);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
   background: rgba(255, 255, 255, 0.03);
+
   padding: 0.4rem 0.85rem;
+
   border-radius: 999px;
+
+  backdrop-filter: blur(12px);
+
+  white-space: nowrap;
 }
 
-/* ---------------- Stats ---------------- */
+@keyframes glowPulse {
+  from {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+/* ==========================================================
+   STATS
+   ========================================================== */
 
 .statsSection {
+  width: 100%;
+
   padding: 3.5rem 1.5rem;
-  border-bottom: 1px solid rgba(94, 234, 212, 0.08);
+
+  border-bottom: 1px solid rgba(249, 115, 22, 0.08);
 }
 
 .statsGrid {
+  width: 100%;
   max-width: 64rem;
+
   margin: 0 auto;
+
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
   gap: 1rem;
 }
 
 .statCard {
+  min-width: 0;
+
   text-align: center;
+
   padding: 1.5rem 1rem;
-  border: 1px solid var(--card-border);
-  background: var(--card);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(255, 255, 255, 0.03);
+
   border-radius: 14px;
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.statCard:hover {
+  border-color: rgba(249, 115, 22, 0.35);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  transform: translateY(-3px);
 }
 
 .statValue {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-inter), sans-serif;
+
   font-size: clamp(1.6rem, 3vw, 2.2rem);
+
   font-weight: 700;
-  background: linear-gradient(90deg, var(--teal), var(--cyan));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+
+  line-height: 1;
+
+  color: var(--orange);
 }
 
 .statLabel {
-  margin-top: 0.35rem;
+  margin-top: 0.5rem;
+
   font-size: 0.82rem;
-  color: var(--muted);
+
+  line-height: 1.4;
+
+  color: rgba(255, 255, 255, 0.5);
 }
 
-/* ---------------- Generic section ---------------- */
+/* ==========================================================
+   GENERIC SECTION
+   ========================================================== */
 
 .section {
+  width: 100%;
   max-width: 68rem;
+
   margin: 0 auto;
+
   padding: 5rem 1.5rem;
 }
 
 .sectionHead {
   text-align: center;
+
   margin-bottom: 2.75rem;
+
   display: flex;
   flex-direction: column;
+
   align-items: center;
+
   gap: 0.6rem;
 }
 
 .eyebrowSmall {
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.25em;
+
   text-transform: uppercase;
-  color: var(--cyan);
+
+  color: var(--orange);
 }
 
 .sectionTitle {
+  font-family: var(--font-inter), sans-serif;
+
   font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  color: var(--text);
 }
 
-/* ---------------- Mission / Vision ---------------- */
+/* ==========================================================
+   MISSION / VISION
+   ========================================================== */
 
 .mvGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
   gap: 1.5rem;
 }
 
 .mvCard {
+  min-width: 0;
+
   padding: 2rem;
-  border: 1px solid var(--card-border);
-  background: linear-gradient(160deg, rgba(34, 211, 238, 0.06), transparent 60%),
-    var(--card);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(255, 255, 255, 0.03);
+
   border-radius: 18px;
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.mvCard:hover {
+  border-color: rgba(249, 115, 22, 0.4);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  transform: translateY(-0.25rem);
+
+  box-shadow: 0 0 35px rgba(249, 115, 22, 0.1);
+}
+
+.mvIcon {
+  color: var(--orange);
+
+  font-size: 1.4rem;
+
+  line-height: 1;
+
+  margin-bottom: 1rem;
 }
 
 .mvCard h3 {
   font-size: 1.2rem;
+
+  line-height: 1.2;
+
   margin-bottom: 0.6rem;
+
   color: var(--text);
 }
 
 .mvCard p {
-  color: var(--muted);
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.55);
+
   line-height: 1.7;
+
   font-size: 0.95rem;
 }
 
-.mvIcon {
-  color: var(--cyan);
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-}
-
-/* ---------------- Pillars ---------------- */
+/* ==========================================================
+   PILLARS
+   ========================================================== */
 
 .pillarGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
   gap: 1.25rem;
 }
 
 .pillarCard {
   position: relative;
+
+  min-width: 0;
+
   padding: 1.75rem 1.4rem;
-  border: 1px solid var(--card-border);
-  background: var(--card);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(255, 255, 255, 0.03);
+
   border-radius: 16px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
 }
 
 .pillarCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(34, 211, 238, 0.4);
+
+  border-color: rgba(249, 115, 22, 0.5);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  box-shadow: 0 0 30px rgba(249, 115, 22, 0.1);
 }
 
 .pillarTag {
-  display: inline-block;
-  font-family: 'Space Grotesk', sans-serif;
+  display: inline-flex;
+  align-items: center;
+
+  font-family: var(--font-inter), sans-serif;
+
   font-size: 0.75rem;
-  color: var(--cyan);
-  border: 1px solid var(--card-border);
+
+  line-height: 1;
+
+  color: var(--orange);
+
+  border: 1px solid rgba(249, 115, 22, 0.2);
+
+  background: rgba(249, 115, 22, 0.08);
+
   border-radius: 999px;
-  padding: 0.2rem 0.6rem;
+
+  padding: 0.3rem 0.6rem;
+
   margin-bottom: 0.9rem;
 }
 
 .pillarCard h3 {
   font-size: 1.05rem;
+
+  line-height: 1.25;
+
   margin-bottom: 0.5rem;
+
   color: var(--text);
 }
 
 .pillarCard p {
+  margin: 0;
+
   font-size: 0.88rem;
+
   line-height: 1.6;
-  color: var(--muted);
+
+  color: rgba(255, 255, 255, 0.55);
 }
 
-/* ---------------- Team ---------------- */
-
-.teamGrid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1.25rem;
-}
-
-.teamCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.25rem 0.5rem;
-  border: 1px solid var(--card-border);
-  background: var(--card);
-  border-radius: 16px;
-  text-align: center;
-}
-
-.avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--bg);
-  background: linear-gradient(135deg, var(--teal), var(--blue));
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
-}
-
-.teamRole {
-  font-size: 0.78rem;
-  color: var(--muted);
-}
-
-/* ---------------- CTA ---------------- */
-
-.cta {
-  text-align: center;
-  padding: 5rem 1.5rem 6rem;
-  border-top: 1px solid rgba(94, 234, 212, 0.08);
-}
-
-.cta h2 {
-  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
-  margin-bottom: 0.6rem;
-}
-
-.cta p {
-  color: var(--muted);
-  margin-bottom: 1.75rem;
-}
-
-.ctaButton {
-  display: inline-block;
-  padding: 0.8rem 2rem;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--bg);
-  text-decoration: none;
-  background: linear-gradient(90deg, var(--teal), var(--cyan));
-  box-shadow: 0 0 24px rgba(34, 211, 238, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.ctaButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 32px rgba(34, 211, 238, 0.5);
-}
-
-/* ---------------- Responsive ---------------- */
+/* ==========================================================
+   TABLET
+   ========================================================== */
 
 @media (max-width: 900px) {
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
+  .hero {
+    min-height: 70vh;
+
+    padding: 6.5rem 2rem 4.5rem;
   }
+
+  .heroTitle {
+    font-size: clamp(2.5rem, 7vw, 3.6rem);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section {
+    padding: 4.5rem 2rem;
+  }
+
+  .mvGrid {
+    gap: 1rem;
+  }
+
+  .pillarGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 1rem;
+  }
+
+  .pillarCard {
+    padding: 1.6rem 1.4rem;
+  }
+}
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: auto;
+
+    padding: 6rem 1.25rem 4rem;
+
+    align-items: flex-start;
+  }
+
+  .heroGlow {
+    width: 500px;
+    height: 500px;
+
+    top: -25%;
+  }
+
+  .heroInner {
+    max-width: 100%;
+  }
+
+  .heroLabel {
+    font-size: 0.68rem;
+
+    letter-spacing: 0.16em;
+
+    padding: 0.4rem 0.9rem;
+
+    margin-bottom: 1.25rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(2.35rem, 11vw, 3.3rem);
+
+    line-height: 1.05;
+
+    letter-spacing: -0.04em;
+  }
+
+  .heroSub {
+    max-width: 100%;
+
+    margin-top: 1.15rem;
+
+    font-size: 0.92rem;
+
+    line-height: 1.65;
+  }
+
+  .badgeRow {
+    gap: 0.5rem;
+
+    margin-top: 1.25rem;
+  }
+
+  .badge {
+    font-size: 0.68rem;
+
+    padding: 0.38rem 0.7rem;
+
+    white-space: normal;
+
+    text-align: center;
+  }
+
+  /* ---------------- Stats ---------------- */
+
+  .statsSection {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 0.7rem;
+  }
+
+  .statCard {
+    padding: 1.25rem 0.7rem;
+
+    border-radius: 12px;
+  }
+
+  .statValue {
+    font-size: clamp(1.7rem, 9vw, 2.2rem);
+  }
+
+  .statLabel {
+    margin-top: 0.45rem;
+
+    font-size: 0.7rem;
+
+    line-height: 1.35;
+  }
+
+  /* ---------------- Sections ---------------- */
+
+  .section {
+    padding: 4rem 1.25rem;
+  }
+
+  .sectionHead {
+    margin-bottom: 2rem;
+
+    gap: 0.5rem;
+  }
+
+  .eyebrowSmall {
+    font-size: 0.65rem;
+
+    letter-spacing: 0.2em;
+  }
+
+  .sectionTitle {
+    font-size: clamp(1.7rem, 8vw, 2.3rem);
+  }
+
+  /* ---------------- Mission / Vision ---------------- */
+
   .mvGrid {
     grid-template-columns: 1fr;
-  }
-  .pillarGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .teamGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
-@media (max-width: 520px) {
-  .teamGrid {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
   }
+
+  .mvCard {
+    padding: 1.5rem;
+
+    border-radius: 15px;
+  }
+
+  .mvIcon {
+    font-size: 1.2rem;
+
+    margin-bottom: 0.85rem;
+  }
+
+  .mvCard h3 {
+    font-size: 1.1rem;
+
+    margin-bottom: 0.55rem;
+  }
+
+  .mvCard p {
+    font-size: 0.88rem;
+
+    line-height: 1.65;
+  }
+
+  /* ---------------- Pillars ---------------- */
+
   .pillarGrid {
     grid-template-columns: 1fr;
+
+    gap: 0.8rem;
+  }
+
+  .pillarCard {
+    padding: 1.5rem;
+
+    border-radius: 14px;
+  }
+
+  .pillarTag {
+    font-size: 0.68rem;
+
+    padding: 0.28rem 0.55rem;
+
+    margin-bottom: 0.8rem;
+  }
+
+  .pillarCard h3 {
+    font-size: 1.05rem;
+
+    margin-bottom: 0.45rem;
+  }
+
+  .pillarCard p {
+    font-size: 0.85rem;
+
+    line-height: 1.6;
   }
 }
 
+/* ==========================================================
+   VERY SMALL PHONES
+   ========================================================== */
+
+@media (max-width: 380px) {
+  .hero {
+    padding: 5.5rem 1rem 3.5rem;
+  }
+
+  .heroGlow {
+    width: 420px;
+    height: 420px;
+  }
+
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .heroSub {
+    font-size: 0.88rem;
+  }
+
+  .badge {
+    font-size: 0.63rem;
+
+    padding: 0.35rem 0.6rem;
+  }
+
+  .statsSection {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .statCard {
+    padding: 1.1rem 0.5rem;
+  }
+
+  .statValue {
+    font-size: 1.65rem;
+  }
+
+  .statLabel {
+    font-size: 0.65rem;
+  }
+
+  .section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .mvCard,
+  .pillarCard {
+    padding: 1.3rem;
+  }
+}
+
+/* ==========================================================
+   ACCESSIBILITY
+   ========================================================== */
+
 @media (prefers-reduced-motion: reduce) {
-  .pillarCard,
-  .ctaButton {
+  .heroGlow {
+    animation: none;
+  }
+
+  .statCard,
+  .mvCard,
+  .pillarCard {
     transition: none;
   }
 }
