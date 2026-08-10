@@ -5,7 +5,7 @@
 }
 
 .section {
-  padding: 4rem 1.5rem;
+  padding: 0rem 1.5rem;
 }
 
 .container {
@@ -200,10 +200,14 @@
 }
 
 .memberCard::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+  background: linear-gradient(
+    135deg,
+    rgba(249, 115, 22, 0.1) 0%,
+    transparent 50%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -220,14 +224,14 @@
   opacity: 1;
 }
 
-.memberAvatar {
+/* .memberAvatar {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 0.75rem;
   object-fit: cover;
   margin-bottom: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
-}
+} */
 
 .memberName {
   font-family: var(--font-inter), sans-serif;
@@ -246,6 +250,8 @@
 
 .memberSocials {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 0.75rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -302,4 +308,99 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.hero {
+  position: relative;
+  padding: 8rem 1.5rem 2.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(
+    circle,
+    rgba(249, 115, 22, 0.12) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite alternate;
+}
+
+.heroLabel {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #f97316;
+  background: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  padding: 0.4rem 1.25rem;
+  border-radius: 9999px;
+  margin-bottom: 1.5rem;
+}
+
+.heroTitle {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  color: #f97316;
+}
+
+.heroSub {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 560px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.65;
+}
+
+@keyframes glowPulse {
+  from {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+.memberAvatarWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin: 0 0 1rem;
+  overflow: hidden;
+  border-radius: 1.5rem 1.5rem 0.75rem 0.75rem;
+
+  background: radial-gradient(circle at 50% 80%,
+      #f97316 0%,
+      #ea580c 35%,
+      #9a3412 65%,
+      #431407 100%);
+}
+
+.memberAvatar {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: none;
+  margin: 0;
 }
