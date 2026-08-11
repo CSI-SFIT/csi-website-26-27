@@ -4,6 +4,7 @@ import { NoiseTexture } from "../components/ui/noise-texture";
 import SplashScreen from "./components/SplashScreen.jsx";
 import Hero3D from "./components/Hero3D.jsx";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   CalendarDays,
@@ -162,7 +163,7 @@ export default function Home() {
               </p>
 
               <div className="grid w-full max-w-sm grid-cols-1 gap-2.5 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center sm:gap-5">
-                <HeroButton>
+                <HeroButton href="/membership">
                   <span>Join CSI SFIT</span>
                   <ArrowRight
                     size={18}
@@ -170,7 +171,7 @@ export default function Home() {
                   />
                 </HeroButton>
 
-                <HeroButton>
+                <HeroButton href="/events">
                   <span>View Events</span>
                   <CalendarDays
                     size={18}
@@ -178,7 +179,7 @@ export default function Home() {
                   />
                 </HeroButton>
 
-                <HeroButton>
+                <HeroButton href="https://chat.whatsapp.com/JWRSyFzmrzT3YJFr3HIM5H">
                   <span>Code with CSI</span>
                   <ArrowRight
                     size={18}
@@ -188,7 +189,7 @@ export default function Home() {
               </div>
 
               <div className="w-full max-w-sm sm:w-auto sm:max-w-none">
-                <HeroButton wide>
+                <HeroButton wide href="/paradigm-magazine">
                   <span>View Paradigm Edition 9 Magazine</span>
                   <BookOpen
                     size={18}
@@ -309,18 +310,11 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
-              <HeroButton>
+              <HeroButton href="/membership">
                 <span>Join CSI SFIT</span>
                 <ArrowRight
                   size={18}
                   className="text-orange-400 transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </HeroButton>
-              <HeroButton>
-                <span>View Events</span>
-                <CalendarDays
-                  size={18}
-                  className="text-orange-400 transition-transform duration-300 group-hover:scale-110"
                 />
               </HeroButton>
             </div>
@@ -331,50 +325,70 @@ export default function Home() {
   );
 }
 
-function HeroButton({ children, wide }) {
-  return (
-    <button
-      className={`
-        group
-        relative
-        flex
-        w-full
-        items-center
-        justify-center
-        gap-2.5
-        overflow-hidden
-        rounded-xl
-        border
-        border-white/10
-        bg-white/4
-        px-5
-        py-3
-        text-sm
-        font-medium
-        text-white/90
-        backdrop-blur-xl
-        transition-all
-        duration-300
+function HeroButton({ children, wide, href = "#" }) {
+  const isExternal = /^https?:\/\//.test(href);
 
-        hover:border-orange-400/50
-        hover:bg-white/8
-        hover:shadow-[0_0_35px_rgba(249,115,22,0.18)]
-        hover:-translate-y-0.5
+  const className = `
+    group
+    relative
+    flex
+    w-full
+    items-center
+    justify-center
+    gap-2.5
+    overflow-hidden
+    rounded-xl
+    border
+    border-white/10
+    bg-white/4
+    px-5
+    py-3
+    text-sm
+    font-medium
+    text-white/90
+    backdrop-blur-xl
+    transition-all
+    duration-300
 
-        sm:w-auto
-        sm:gap-3
-        sm:px-6
-        sm:py-3.5
-        sm:text-base
+    hover:border-orange-400/50
+    hover:bg-white/8
+    hover:shadow-[0_0_35px_rgba(249,115,22,0.18)]
+    hover:-translate-y-0.5
 
-        ${wide ? "sm:min-w-95 md:min-w-105" : "sm:min-w-55"}
-      `}
-    >
+    sm:w-auto
+    sm:gap-3
+    sm:px-6
+    sm:py-3.5
+    sm:text-base
+
+    ${wide ? "sm:min-w-95 md:min-w-105" : "sm:min-w-55"}
+  `;
+
+  const content = (
+    <>
       <span className="absolute inset-0 bg-linear-to-r from-transparent via-orange-400/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
       <span className="relative flex items-center gap-2.5 sm:gap-3">
         {children}
       </span>
-    </button>
+    </>
+  );
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {content}
+    </Link>
   );
 }
