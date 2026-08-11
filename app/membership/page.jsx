@@ -1,8 +1,17 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown, ChevronUp, Check, HelpCircle, Users, Code, Award, Globe, Zap, Shield, Sparkles, Star, ArrowRight, BookOpen, Network, Rocket, GraduationCap, Briefcase, Building2, Calendar, Lightbulb } from "lucide-react";
+import {
+  ChevronDown,
+  Users,
+  Code,
+  Award,
+  Globe,
+  Zap,
+  Shield,
+  ArrowRight,
+} from "lucide-react";
 import { Inter, Lato } from "next/font/google";
 import { BlurFade } from "../../components/ui/blur-fade";
 import styles from "./page.module.css";
@@ -10,80 +19,17 @@ import styles from "./page.module.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const lato = Lato({ subsets: ["latin"], weight: ["300", "400", "700", "900"], variable: "--font-lato", display: "swap" });
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzepenod";
+
 /* ─────────────────────────────────────────────────
-   MEMBERSHIP TIERS DATA
+   MEMBERSHIP DATA
    ───────────────────────────────────────────────── */
 
-const TIERS = [
-  {
-    id: "student",
-    name: "Student Member",
-    subtitle: "For active SFIT students",
-    price: "₹500",
-    period: "/year",
-    gradient: "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-    icon: GraduationCap,
-    popular: false,
-    features: [
-      "Access to all workshops & webinars",
-      "Priority registration for events",
-      "Member-only Discord community",
-      "Certificate of membership",
-      "Discount on flagship events (15%)",
-      "Access to job/internship board",
-      "Mentorship program eligibility",
-      "CSI digital membership card",
-    ],
-    cta: "Join as Student",
-    href: "/contact?type=student-membership",
-  },
-  {
-    id: "professional",
-    name: "Professional Member",
-    subtitle: "For alumni & working professionals",
-    price: "₹1,500",
-    period: "/year",
-    gradient: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)",
-    icon: Briefcase,
-    popular: true,
-    features: [
-      "Everything in Student tier",
-      "Speak at CSI events & workshops",
-      "Access to alumni network",
-      "Exclusive industry roundtables",
-      "Discount on flagship events (25%)",
-      "Job referral network access",
-      "Technical blog publication opportunity",
-      "Mentor student members",
-      "Annual CSI magazine (physical copy)",
-    ],
-    cta: "Join as Professional",
-    href: "/contact?type=professional-membership",
-  },
-  {
-    id: "corporate",
-    name: "Corporate Partner",
-    subtitle: "For companies & organizations",
-    price: "₹50,000",
-    period: "/year",
-    gradient: "linear-gradient(135deg, #f97316 0%, #ef4444 100%)",
-    icon: Building2,
-    popular: false,
-    features: [
-      "Everything in Professional tier",
-      "Branding at all CSI events",
-      "Recruitment drive access",
-      "Dedicated booth at flagship events",
-      "Co-host workshops & hackathons",
-      "Access to student talent pool",
-      "Tech talk / seminar slot",
-      "Logo on CSI website & collateral",
-      "Annual impact report",
-      "5 professional memberships included",
-    ],
-    cta: "Become a Partner",
-    href: "/contact?type=corporate-partnership",
-  },
+const MEMBERSHIP_STATS = [
+  { value: "500+", label: "Active Members" },
+  { value: "10+", label: "Events / Year" },
+  { value: "50+", label: "Workshops Conducted" },
+  { value: "2000+", label: "Alumni Network" },
 ];
 
 const BENEFITS = [
@@ -117,22 +63,6 @@ const BENEFITS = [
     title: "Career Support",
     description: "Access exclusive job/internship boards, resume reviews, mock interviews, and direct referrals from our alumni and corporate network.",
   },
-];
-
-const MEMBERSHIP_STATS = [
-  { value: "500+", label: "Active Members" },
-  { value: "10+", label: "Events / Year" },
-  { value: "50+", label: "Workshops Conducted" },
-  { value: "2000+", label: "Alumni Network" },
-];
-
-const WHY_JOIN_POINTS = [
-  { icon: Users, title: "Industry mentors and peers", description: "Learn from alumni, professionals, and fellow student innovators." },
-  { icon: BookOpen, title: "Learning resources", description: "Access curated materials, workshops, and project opportunities." },
-  { icon: Rocket, title: "Career acceleration", description: "Get priority access to events, internships, and placement guidance." },
-  { icon: Calendar, title: "Leadership exposure", description: "Build real-world organizing and communication skills through CSI initiatives." },
-  { icon: Lightbulb, title: "Innovation projects", description: "Collaborate on hackathons, research, and prototype development." },
-  { icon: Award, title: "Recognition", description: "Earn certificates and grow your portfolio through participation." },
 ];
 
 const INTEREST_OPTIONS = [
@@ -177,41 +107,8 @@ const FAQ = [
   },
 ];
 
-// Icon components for tiers
-function GraduationCapIcon({ className }) {
-  return <GraduationCap size={28} className={className} />;
-}
-function BriefcaseIcon({ className }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-    </svg>
-  );
-}
-function Building2Icon({ className }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18" />
-      <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
-      <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
-      <path d="M10 6h4" />
-      <path d="M10 10h4" />
-      <path d="M10 14h4" />
-      <path d="M10 18h4" />
-    </svg>
-  );
-}
-
-const TIER_ICONS = {
-  student: GraduationCapIcon,
-  professional: BriefcaseIcon,
-  corporate: Building2Icon,
-};
-
 export default function MembershipPage() {
   const [activeFaq, setActiveFaq] = useState(null);
-  const [scrolled, setScrolled] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -221,13 +118,10 @@ export default function MembershipPage() {
     interests: [],
   });
   const [agreed, setAgreed] = useState(false);
-  const tiersRef = useRef(null);
+  const [submitStatus, setSubmitStatus] = useState("idle"); // idle | submitting | success | error
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleFaq = (index) => {
@@ -252,26 +146,43 @@ export default function MembershipPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCeLaKqxz3ZX8H3EM5_PD340vAHh0ywfMvXTMR-mIeJ397hiTkCJ_lc2gGSNhATmW6/exec";
+    setSubmitStatus("submitting");
 
     try {
-      await fetch(GOOGLE_SCRIPT_URL, {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, agreed }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          year: formData.year,
+          department: formData.department,
+          interests: formData.interests.join(", "),
+          agreed,
+        }),
       });
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        year: "",
-        department: "",
-        interests: [],
-      });
-      setAgreed(false);
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          year: "",
+          department: "",
+          interests: [],
+        });
+        setAgreed(false);
+      } else {
+        setSubmitStatus("error");
+      }
     } catch (error) {
       console.error("Membership form submission failed", error);
+      setSubmitStatus("error");
     }
   };
 
@@ -284,7 +195,7 @@ export default function MembershipPage() {
 
         <BlurFade delay={0.1} inView>
           <span className={styles.eyebrow}>
-            <span className={styles.eyebrowDot} />
+            {/* <span className={styles.eyebrowDot} /> */}
             Join the Community
           </span>
         </BlurFade>
@@ -311,72 +222,6 @@ export default function MembershipPage() {
             ))}
           </div>
         </BlurFade>
-      </section>
-
-      {/* ─── Membership Tiers ─── */}
-      <section className={styles.tiersSection} ref={tiersRef}>
-        <BlurFade delay={0.1} inView>
-          <div className={styles.sectionHead}>
-            <span className={styles.eyebrowSmall}>Choose Your Path</span>
-            <h2 className={styles.sectionTitle}>Membership Tiers</h2>
-            <p className={styles.sectionSub}>Select the tier that matches your journey — from student to industry leader</p>
-          </div>
-        </BlurFade>
-
-        <div className={styles.tiersGrid}>
-          {TIERS.map((tier, i) => {
-            const TierIcon = TIER_ICONS[tier.id];
-            return (
-              <BlurFade key={tier.id} delay={0.2 + i * 0.1} inView>
-                <motion.div
-                  className={`${styles.tierCard} ${tier.popular ? styles.tierPopular : ""}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  whileHover={{ y: -8 }}
-                >
-                  {tier.popular && (
-                    <div className={styles.popularBadge}>
-                      <Star size={14} className={styles.popularStar} />
-                      Most Popular
-                    </div>
-                  )}
-
-                  <div className={styles.tierIconWrap} style={{ background: tier.gradient }}>
-                    <TierIcon className={styles.tierIcon} />
-                  </div>
-
-                <div className={styles.tierContent}>
-                  <h3 className={styles.tierName}>{tier.name}</h3>
-                  <p className={styles.tierSubtitle}>{tier.subtitle}</p>
-
-                  <div className={styles.tierPrice}>
-                    <span className={styles.price}>{tier.price}</span>
-                    <span className={styles.period}>{tier.period}</span>
-                  </div>
-                </div>
-
-                <ul className={styles.featuresList} role="list">
-                  {tier.features.map((feature, idx) => (
-                    <li key={idx} className={styles.featureItem}>
-                      <Check size={16} className={styles.featureCheck} />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                  <a
-                    href={tier.href}
-                    className={`${styles.tierCta} ${tier.popular ? styles.ctaPrimary : styles.ctaSecondary}`}
-                  >
-                    {tier.cta}
-                    <ArrowRight size={16} />
-                  </a>
-                </motion.div>
-              </BlurFade>
-            );
-          })}
-        </div>
       </section>
 
       {/* ─── Benefits ─── */}
@@ -416,7 +261,7 @@ export default function MembershipPage() {
           <div className={styles.sectionHead}>
             <span className={styles.eyebrowSmall}>Apply Today</span>
             <h2 className={styles.sectionTitle}>Become a Member</h2>
-            <p className={styles.sectionSub}>Share your details and join CSI SFIT’s growing tech community.</p>
+            <p className={styles.sectionSub}>Share your details and join CSI SFIT's growing tech community.</p>
           </div>
         </BlurFade>
 
@@ -488,31 +333,22 @@ export default function MembershipPage() {
                   <span>I agree to be contacted by CSI SFIT regarding membership updates.</span>
                 </label>
 
-                <button type="submit" className={styles.submitButton}>
-                  Join CSI SFIT
+                <button type="submit" className={styles.submitButton} disabled={submitStatus === "submitting"}>
+                  {submitStatus === "submitting" ? "Submitting..." : "Join CSI SFIT"}
                   <ArrowRight size={16} />
                 </button>
-              </form>
-            </motion.div>
-          </BlurFade>
 
-          <BlurFade delay={0.25} inView>
-            <motion.div className={styles.reasonCard} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-              <h3 className={styles.reasonTitle}>Why Join CSI SFIT?</h3>
-              <ul className={styles.reasonList}>
-                {WHY_JOIN_POINTS.map((point) => {
-                  const Icon = point.icon;
-                  return (
-                    <li key={point.title} className={styles.reasonItem}>
-                      <div className={styles.reasonIcon}><Icon size={18} /></div>
-                      <div>
-                        <h4 className={styles.reasonHeading}>{point.title}</h4>
-                        <p className={styles.reasonText}>{point.description}</p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+                {submitStatus === "success" && (
+                  <p className={styles.formStatusSuccess} role="status">
+                    Thanks for applying! We'll be in touch soon.
+                  </p>
+                )}
+                {submitStatus === "error" && (
+                  <p className={styles.formStatusError} role="alert">
+                    Something went wrong submitting the form. Please try again or email us directly.
+                  </p>
+                )}
+              </form>
             </motion.div>
           </BlurFade>
         </div>
@@ -546,7 +382,6 @@ export default function MembershipPage() {
                   <div className={`${styles.faqIcon} ${activeFaq === i ? styles.faqIconOpen : ""}`}>
                     <ChevronDown size={20} />
                   </div>
-                  <HelpCircle size={20} className={styles.helpIcon} />
                 </button>
 
                 <AnimatePresence>
@@ -567,35 +402,6 @@ export default function MembershipPage() {
           ))}
         </div>
       </section>
-
-      {/* ─── CTA ─── */}
-      <section className={styles.ctaSection}>
-        <BlurFade delay={0.1} inView>
-          <div className={styles.ctaCard}>
-            <div className={styles.ctaGlow} />
-            <h2 className={styles.ctaTitle}>Ready to Start Your Journey?</h2>
-            <p className={styles.ctaDesc}>Join 500+ members building the future of tech at SFIT. Membership takes 2 minutes.</p>
-            <div className={styles.ctaButtons}>
-              <a href="/contact?type=student-membership" className={styles.ctaPrimaryBtn}>
-                <Sparkles size={18} />
-                Join as Student
-              </a>
-              <a href="/contact?type=professional-membership" className={styles.ctaSecondaryBtn}>
-                <Network size={18} />
-                Join as Professional
-              </a>
-            </div>
-            <p className={styles.ctaNote}>Questions? Email us at <a href="mailto:membership@csi-sfit.org" className={styles.emailLink}>membership@csi-sfit.org</a></p>
-          </div>
-        </BlurFade>
-      </section>
-
-      {/* ─── Scroll indicator ─── */}
-      {scrolled && (
-        <div className={styles.scrollTop} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <ChevronUp size={20} />
-        </div>
-      )}
     </main>
   );
 }
