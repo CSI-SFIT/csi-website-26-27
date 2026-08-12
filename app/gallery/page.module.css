@@ -353,3 +353,9 @@
     animation-duration: 1.5s;
   }
 }
+
+@media (max-width: 640px) {
+  .filterContainer {
+    display: none;
+  }
+}

@@ -4,6 +4,8 @@
   background: #000;
   color: #fff;
   font-family: var(--font-lato), sans-serif;
+  font-feature-settings: "kern" 1;
+  -webkit-font-smoothing: antialiased;
 }
 
 .hero {
@@ -38,11 +40,13 @@
 
 .heroTitle {
   font-family: var(--font-inter), sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2.5rem, 5.5vw, 2rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
   margin: 0 auto 1.5rem;
   max-width: 44rem;
+  text-wrap: balance;
 }
 
 .heroTitle span {
@@ -53,8 +57,10 @@
   max-width: 38rem;
   margin: 0 auto;
   color: rgba(255, 255, 255, 0.72);
-  line-height: 1.75;
-  font-size: 1rem;
+  line-height: 1.65;
+  font-size: 1.05rem;
+  font-weight: 300;
+  letter-spacing: 0.005em;
 }
 
 .section {
@@ -73,27 +79,31 @@
   align-items: center;
   gap: 0.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.25em;
   color: #fb923c;
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 600;
   margin-bottom: 0.85rem;
 }
 
 .sectionTitle {
   font-family: var(--font-inter), sans-serif;
-  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  font-weight: 800;
   line-height: 1.1;
+  letter-spacing: -0.02em;
   margin: 0 auto 1rem;
   max-width: 32rem;
+  text-wrap: balance;
 }
 
 .sectionText {
   max-width: 42rem;
   margin: 0 auto;
   color: rgba(255, 255, 255, 0.65);
-  line-height: 1.8;
-  font-size: 1rem;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  font-weight: 300;
 }
 
 .sponsorGrid {
@@ -143,25 +153,31 @@
 
 .sponsorName {
   font-family: var(--font-inter), sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
   color: #ffffff;
   text-align: center;
   margin: 0;
+  text-wrap: balance;
 }
 
 .sponsorDescription {
   color: rgba(255, 255, 255, 0.68);
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.6;
   text-align: center;
   margin: 0;
 }
 
 .sponsorContribution {
   color: #fbbf24;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-align: center;
 }
 
@@ -171,12 +187,13 @@
   justify-content: center;
   gap: 0.5rem;
   margin: 0 auto;
-  padding: 0.85rem 1.2rem;
+  padding: 0.75rem 1.1rem;
   border-radius: 9999px;
   background: rgba(249, 115, 22, 0.15);
   color: #fbbf24;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
   border: 1px solid rgba(249, 115, 22, 0.22);
   transition: background 0.3s ease, transform 0.3s ease;
 }
@@ -221,26 +238,33 @@
 }
 
 .kitTitle {
-  font-size: clamp(1.5rem, 3vw, 1.95rem);
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
   font-weight: 700;
-  margin: 0 0 0.65rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
 }
 
 .kitText {
   margin: 0;
   color: rgba(255, 255, 255, 0.72);
-  line-height: 1.75;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
 
 .kitButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.95rem 1.5rem;
+  padding: 0.85rem 1.4rem;
   border-radius: 9999px;
   background: linear-gradient(90deg, #f59e0b, #fb923c);
   color: #000;
   font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
   text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -273,11 +297,24 @@
     font-size: clamp(2rem, 7vw, 3rem);
   }
 
+  .heroCopy {
+    font-size: 0.95rem;
+  }
+
   .section {
     padding: 0 0.5rem;
   }
 
   .sponsorGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .sponsorCard,
+  .sponsorLink,
+  .kitButton {
+    transition: none;
   }
 }

@@ -1,459 +1,347 @@
-// Fiza
+"use client";
+import { useRef, useState } from "react";
+import styles from "./page.module.css";
+import { Inter, Lato } from "next/font/google";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import './MagazinePage.css';
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-lato",
+  display: "swap",
+});
 
-const COVER_IMAGE_DATA_URI = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCARjAxoDASIAAhEBAxEB/8QAHQABAAAHAQEAAAAAAAAAAAAAAAEDBAUGBwgCCf/EAGgQAAEDAwIDAwYGCwoKBwYBDQECAwQABREGEhMhMQciQQgUMlFhcRUjQnSBkRYYNjdSVZShsbKzJDNicnWCwdHS0xclNENTVFZzkpM1OJWitMLhJmSDhMPwY6PiJyhERUZXdpbxR4b/xAAbAQEAAgMBAQAAAAAAAAAAAAAABAUDBgcCAf/EAEERAQABAgMEBgYJAgYBBQAAAAABAgMEBREGEiExE0FRYXGxM3KBkaHRFCIyNUJSweHwIzQWU2KCstIVJENUovH/2gAMAw2Block";
+/* ---- Edit these to point at your actual files ----
+   Add/remove entries here as new editions are published.
+   The first entry is treated as the current issue and gets
+   the big 3D showcase; everything else lands in the archive. */
+const MAGAZINES = [
+  {
+    year: "2026",
+    title: "CSI SFIT Magazine",
+    edition: "Edition 2025\u201326",
+    cover: "./magazine_covers/magazine2026.webp",
+    pdf: "./magazine/magazine2026.pdf",
+    pages: "48",
+    size: "6 MB",
+  },
+  {
+    year: "2025",
+    cover: "./magazine_covers/magazine2025.webp",
+    pdf: "./magazine/magazine2025.pdf",
+    pages: "44",
+    size: "70 MB",
+  },
+  {
+    year: "2024",
+    cover: "./magazine_covers/magazine2024.webp",
+    pdf: "./magazine/magazine2024.pdf",
+    pages: "38",
+    size: "4 MB",
+  },
+  {
+    year: "2022",
+    cover: "./magazine_covers/magazine2022.webp",
+    pdf: "./magazine/magazine2022.pdf",
+    pages: "26",
+    size: "18 MB",
+  },
+];
+/* --------------------------------------------------- */
 
-export default function MagazinePage() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isArchiveOpen, setIsArchiveOpen] = useState(false);
+const CURRENT = MAGAZINES[0];
+const ARCHIVE = MAGAZINES.slice(1);
 
-  // PDF Modal State
-  const [pdfState, setPdfState] = useState({
-    isOpen: false,
-    url: '',
-    title: '',
-    pageNum: 1,
-    pageCount: 0,
-    scale: 1.2,
-    isLoading: false,
-    error: false,
-  });
+const STATS = [
+  { value: 9, label: "Editions published" },
+  { value: "2018", label: "First edition" },
+  { value: 9, label: "Unique Ideas" },
+  { value: "100+", label: "Student contributors" },
+];
 
-  const pdfDocRef = useRef(null);
-  const isRenderingRef = useRef(false);
-  const pendingPageRef = useRef(null);
+const CONTENTS = [
+  {
+    tag: "Reads",
+    title: "Tech Deep-Dives",
+    copy: "Long-form explainers on AI/ML, web and cloud, written by students who built the projects.",
+  },
+  {
+    tag: "People",
+    title: "Our Team",
+    copy: "The people behind CSI SFIT, working together to lead initiatives, build projects and grow our community.",
+  },
+  {
+    tag: "Recap",
+    title: "Year in Events",
+    copy: "Hackathons, workshops and expert talks from the year, in photos and numbers.",
+  },
+  {
+    tag: "Challenge",
+    title: "Tech Puzzles & Quizzes",
+    copy: "Put your tech knowledge to the test with puzzles, quizzes and challenges made for curious minds.",
+  },
+];
 
-  // DOM Refs
-  const asciiCanvasRef = useRef(null);
-  const threeContainerRef = useRef(null);
-  const pdfCanvasRef = useRef(null);
+function DownloadIcon({ size = 18 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 3v12" />
+      <path d="M7 10l5 5 5-5" />
+      <path d="M5 21h14" />
+    </svg>
+  );
+}
 
-  // Load External Scripts (Three.js & PDF.js)
-  useEffect(() => {
-    const loadScript = (src, id) => {
-      return new Promise((resolve, reject) => {
-        if (document.getElementById(id)) {
-          resolve();
-          return;
-        }
-        const script = document.createElement('script');
-        script.src = src;
-        script.id = id;
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error(`Failed to load ${src}`));
-        document.body.appendChild(script);
-      });
-    };
+/* ---- Featured cover: mouse-tracked 3D tilt ---- */
+function FeaturedCover({ cover, year }) {
+  const sceneRef = useRef(null);
+  const [tilt, setTilt] = useState({ rx: 8, ry: -14 });
+  const [active, setActive] = useState(false);
 
-    Promise.all([
-      loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 'three-js'),
-      loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', 'pdf-js')
-    ]).then(() => {
-      if (window.pdfjsLib) {
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-      }
-      initThreeJS();
-    }).catch(console.error);
+  function handleMove(e) {
+    const el = sceneRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const ry = (px - 0.5) * 34;
+    const rx = (0.5 - py) * 24;
+    setTilt({ rx, ry });
+  }
 
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 2300);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // ASCII Rain Effect
-  useEffect(() => {
-    const canvas = asciiCanvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    let asciiWidth = (canvas.width = window.innerWidth);
-    let asciiHeight = (canvas.height = window.innerHeight);
-    const chars = "01CSI_SFIT_PARADIGM_<>/*+~#@%";
-    const fontSize = 14;
-    let columns = Math.floor(asciiWidth / fontSize);
-    let drops = Array(columns).fill(1);
-
-    const handleResize = () => {
-      asciiWidth = canvas.width = window.innerWidth;
-      asciiHeight = canvas.height = window.innerHeight;
-      columns = Math.floor(asciiWidth / fontSize);
-      drops = Array(columns).fill(1);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    let mouse = { x: -1000, y: -1000 };
-    const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-
-    let animId;
-    const drawAscii = () => {
-      ctx.fillStyle = 'rgba(8, 3, 5, 0.08)';
-      ctx.fillRect(0, 0, asciiWidth, asciiHeight);
-      ctx.font = `${fontSize}px monospace`;
-
-      for (let i = 0; i < drops.length; i++) {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        const x = i * fontSize;
-        const y = drops[i] * fontSize;
-
-        const dx = x - mouse.x;
-        const dy = y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        ctx.fillStyle = dist < 120 ? '#ff4500' : '#2b0c12';
-        ctx.fillText(char, x, y);
-
-        if (y > asciiHeight && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-      animId = requestAnimationFrame(drawAscii);
-    };
-
-    drawAscii();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animId);
-    };
-  }, []);
-
-  // Three.js 3D Background Setup
-  const initThreeJS = () => {
-    const container = threeContainerRef.current;
-    if (!container || !window.THREE) return;
-    container.innerHTML = '';
-
-    const THREE = window.THREE;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 6;
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 1.5));
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    dirLight.position.set(5, 5, 4);
-    scene.add(dirLight);
-
-    // 3D Animated Plane/Mesh
-    const geometry = new THREE.PlaneGeometry(2.2, 3.1);
-    const textureLoader = new THREE.TextureLoader();
-
-    textureLoader.load(COVER_IMAGE_DATA_URI, (texture) => {
-      const material = new THREE.MeshStandardMaterial({ map: texture, side: THREE.DoubleSide });
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(1.5, 0, 0);
-      scene.add(mesh);
-
-      let animId;
-      const animate = () => {
-        mesh.rotation.y += 0.005;
-        mesh.rotation.x = Math.sin(Date.now() * 0.001) * 0.1;
-        renderer.render(scene, camera);
-        animId = requestAnimationFrame(animate);
-      };
-      animate();
-    });
-
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-  };
-
-  // PDF Render Page Helper
-  const renderPdfPage = useCallback((num, scale) => {
-    if (!pdfDocRef.current || !pdfCanvasRef.current) return;
-
-    isRenderingRef.current = true;
-    pdfDocRef.current.getPage(num).then((page) => {
-      const canvas = pdfCanvasRef.current;
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const viewport = page.getViewport({ scale });
-
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-
-      const renderContext = { canvasContext: ctx, viewport };
-      const renderTask = page.render(renderContext);
-
-      renderTask.promise.then(() => {
-        isRenderingRef.current = false;
-        if (pendingPageRef.current !== null) {
-          const next = pendingPageRef.current;
-          pendingPageRef.current = null;
-          renderPdfPage(next, scale);
-        }
-      });
-    });
-  }, []);
-
-  const queueRenderPage = useCallback((num, scale) => {
-    if (isRenderingRef.current) {
-      pendingPageRef.current = num;
-    } else {
-      renderPdfPage(num, scale);
-    }
-  }, [renderPdfPage]);
-
-  // Handle PDF Open
-  const openPdfModal = (pdfUrl, title) => {
-    setPdfState({
-      isOpen: true,
-      url: pdfUrl,
-      title: title,
-      pageNum: 1,
-      pageCount: 0,
-      scale: 1.2,
-      isLoading: true,
-      error: false,
-    });
-    setIsArchiveOpen(false);
-
-    if (!window.pdfjsLib) {
-      setPdfState((prev) => ({ ...prev, isLoading: false, error: true }));
-      return;
-    }
-
-    window.pdfjsLib.getDocument(pdfUrl).promise.then((doc) => {
-      pdfDocRef.current = doc;
-      setPdfState((prev) => ({
-        ...prev,
-        pageCount: doc.numPages,
-        isLoading: false,
-      }));
-    }).catch(() => {
-      setPdfState((prev) => ({ ...prev, isLoading: false, error: true }));
-    });
-  };
-
-  // Trigger PDF page rendering after loading state updates
-  useEffect(() => {
-    if (pdfState.isOpen && !pdfState.isLoading && !pdfState.error && pdfDocRef.current) {
-      queueRenderPage(pdfState.pageNum, pdfState.scale);
-    }
-  }, [pdfState.isOpen, pdfState.isLoading, pdfState.error, pdfState.pageNum, pdfState.scale, queueRenderPage]);
-
-  const closePdfViewer = () => {
-    pdfDocRef.current = null;
-    setPdfState((prev) => ({ ...prev, isOpen: false }));
-  };
-
-  const handlePrevPage = () => {
-    if (pdfState.pageNum <= 1) return;
-    setPdfState((prev) => ({ ...prev, pageNum: prev.pageNum - 1 }));
-  };
-
-  const handleNextPage = () => {
-    if (pdfState.pageNum >= pdfState.pageCount) return;
-    setPdfState((prev) => ({ ...prev, pageNum: prev.pageNum + 1 }));
-  };
-
-  const handleZoom = (delta) => {
-    setPdfState((prev) => ({
-      ...prev,
-      scale: Math.max(0.4, Math.min(3, prev.scale + delta)),
-    }));
-  };
-
-  // Keyboard navigation for PDF modal
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!pdfState.isOpen) return;
-      if (e.key === 'ArrowRight') handleNextPage();
-      if (e.key === 'ArrowLeft') handlePrevPage();
-      if (e.key === 'Escape') closePdfViewer();
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [pdfState.isOpen, pdfState.pageNum, pdfState.pageCount]);
+  function handleLeave() {
+    setActive(false);
+    setTilt({ rx: 8, ry: -14 });
+  }
 
   return (
-    <div className={isLoaded ? 'loaded' : ''}>
-      {/* Intro Loading Screen */}
-      <div id="intro-screen" className={isLoaded ? 'fade-out' : ''}>
-        <div className="intro-content">
-          <div className="intro-subtitle">CSI SFIT PRESENTS</div>
-          <div className="intro-title">OUR <span>MAGAZINE</span></div>
-          <div className="intro-loader-bar">
-            <div className="intro-loader-progress"></div>
-          </div>
-        </div>
-      </div>
+    <div
+      className={styles.scene}
+      ref={sceneRef}
+      onMouseMove={handleMove}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={handleLeave}
+    >
+      <div className={styles.sceneGlow} />
 
-      {/* Background ASCII Canvas */}
-      <canvas id="ascii-canvas" ref={asciiCanvasRef}></canvas>
-
-      {/* Main Page Layout */}
-      <div className="page-wrapper">
-        <div className="glow-bg"></div>
-        <div id="canvas-container" ref={threeContainerRef}></div>
-
-        <header className="site-header">
-          <div className="nav-logo">CSI <span>SFIT</span></div>
-        </header>
-
-        <main className="hero-container">
-          <div className="hero-text-side">
-            <div className="main-heading-container">
-              <h1 className="page-title">OUR <span>MAGAZINE</span></h1>
-            </div>
-
-            <div className="hero-content" id="hero-card">
-              <p className="tag">2026 EDITION</p>
-              <p className="description">
-                Explore the creativity, innovation, and technical achievements of CSI SFIT through our flagship annual publication.
-              </p>
-
-              <div className="btn-group">
-                <button
-                  className="btn-primary"
-                  onClick={() => openPdfModal('./assets/magazine-2026.pdf', 'Magazine 2026')}
-                >
-                  Read Magazine 2026
-                </button>
-                <button
-                  className="btn-secondary"
-                  onClick={() => setIsArchiveOpen(true)}
-                >
-                  Explore Archive
-                </button>
-              </div>
-            </div>
-          </div>
-        </main>
-
-        <footer>
-          <div className="footer-container">
-            <div className="footer-brand">
-              <h3>Computer Society Of India, St Francis Institute Of Technology</h3>
-              <p>We Make It Happen</p>
-            </div>
-
-            <div className="footer-actions">
-              <div className="social-links">
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" title="LinkedIn">in</a>
-                <a href="https://instagram.com" target="_blank" rel="noreferrer" title="Instagram">📷</a>
-                <a href="https://github.com" target="_blank" rel="noreferrer" title="GitHub">🐙</a>
-              </div>
-              <button className="btn-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                ↑ Top
-              </button>
-            </div>
-          </div>
-
-          <div className="copyright-bar">
-            © 2026 SFIT CSI. All rights reserved.
-          </div>
-        </footer>
-      </div>
-
-      {/* Archive Drawer Panel */}
-      <div className={`archive-panel ${isArchiveOpen ? 'open' : ''}`}>
-        <div className="archive-header">
-          <h2>MAGAZINE ARCHIVE</h2>
-          <button className="close-btn" onClick={() => setIsArchiveOpen(false)}>&times;</button>
-        </div>
-
-        <div className="archive-list">
-          <div onClick={() => openPdfModal('./assets/magazine-2025.pdf', 'Read Edition 2025')} className="archive-card">
-            <div className="title">Read Edition 2025</div>
-          </div>
-
-          <div onClick={() => openPdfModal('./assets/magazine-2024.pdf', 'Read Edition 2024')} className="archive-card">
-            <div className="title">Read Edition 2024</div>
-          </div>
-
-          <div onClick={() => openPdfModal('./assets/magazine-2022.pdf', 'Read Edition 2022')} className="archive-card">
-            <div className="title">Read Edition 2022</div>
-          </div>
-        </div>
-      </div>
-
-      {/* PDF Modal Viewer Overlay */}
       <div
-        className={`pdf-modal-overlay ${pdfState.isOpen ? 'active' : ''}`}
-        onClick={(e) => e.target.classList.contains('pdf-modal-overlay') && closePdfViewer()}
+        className={`${styles.coverRig} ${active ? styles.coverRigActive : ""}`}
+        style={{
+          transform: `perspective(1400px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+        }}
       >
-        <div className="pdf-modal-container">
-          <div className="pdf-modal-header">
-            <h3>{pdfState.title || 'Reading Magazine'}</h3>
-            <div className="pdf-modal-actions">
-              <a
-                href={pdfState.url}
-                download={pdfState.url.split('/').pop()}
-                target="_blank"
-                rel="noreferrer"
-                className="pdf-download-link"
-              >
-                Open PDF Directly / Download
-              </a>
-              <button className="close-btn" onClick={closePdfViewer}>&times;</button>
-            </div>
-          </div>
+        <div className={styles.pageStack} aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
 
-          <div className="pdf-modal-body">
-            <div className="pdf-toolbar">
-              <button onClick={handlePrevPage} disabled={pdfState.pageNum <= 1} title="Previous page">
-                &#8592;
-              </button>
-              <span className="pdf-page-info">
-                <span>{pdfState.pageNum}</span> / <span>{pdfState.pageCount || '–'}</span>
-              </span>
-              <button onClick={handleNextPage} disabled={pdfState.pageNum >= pdfState.pageCount} title="Next page">
-                &#8594;
-              </button>
-              <span className="pdf-divider"></span>
-              <button onClick={() => handleZoom(-0.2)} title="Zoom out">&minus;</button>
-              <span className="pdf-zoom-info">{Math.round((pdfState.scale / 1.2) * 100)}%</span>
-              <button onClick={() => handleZoom(0.2)} title="Zoom in">+</button>
-            </div>
+        <div className={styles.coverFace}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={cover}
+            alt={`CSI SFIT Magazine ${year} front cover`}
+            className={styles.coverImg}
+            draggable={false}
+          />
+          <div className={styles.coverSheen} />
+        </div>
 
-            <div className="pdf-canvas-wrap">
-              {pdfState.isLoading && (
-                <div className="pdf-loading-state">
-                  <div className="pdf-spinner"></div>
-                  <p>Loading magazine…</p>
-                </div>
-              )}
+        <div className={styles.coverSpine} aria-hidden="true" />
+      </div>
 
-              {pdfState.error && (
-                <div className="pdf-error-state">
-                  <p style={{ color: '#ff6b35' }}>Unable to display this PDF inline.</p>
-                  <a href={pdfState.url} target="_blank" rel="noreferrer" className="btn-primary" style={{ textDecoration: 'none' }}>
-                    Open or Download {pdfState.title}
-                  </a>
-                </div>
-              )}
+      <div className={styles.sceneShadow} />
+    </div>
+  );
+}
 
-              {!pdfState.isLoading && !pdfState.error && (
-                <canvas ref={pdfCanvasRef}></canvas>
-              )}
-            </div>
-          </div>
+/* ---- Archive cover: lighter CSS-only hover tilt ---- */
+function ArchiveCover({ cover, year }) {
+  return (
+    <div className={styles.archiveScene}>
+      <div className={styles.archiveGlow} />
+
+      <div className={styles.archiveRig}>
+        <div className={styles.archivePageStack} aria-hidden="true">
+          <span />
+          <span />
+        </div>
+
+        <div className={styles.archiveCoverFace}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={cover}
+            alt={`CSI SFIT Magazine ${year} front cover`}
+            className={styles.archiveCoverImg}
+            draggable={false}
+          />
+          <div className={styles.archiveSheen} />
         </div>
       </div>
+
+      <div className={styles.archiveShadow} />
     </div>
+  );
+}
+
+export default function MagazinePage() {
+  return (
+    <main className={`${styles.page} ${inter.variable} ${lato.variable}`}>
+      {/* ---------- Hero ---------- */}
+      <section className={styles.hero} aria-labelledby="magazine-heading">
+        <div className={styles.heroGlow} />
+
+        <div className={styles.heroInner}>
+          <div className={`${styles.heroLabel} font-lato`}>
+            CSI SFIT Publication
+          </div>
+
+          <h1
+            id="magazine-heading"
+            className={`${styles.heroTitle} font-inter`}
+          >
+            Every year&apos;s story,{" "}
+            <span className={styles.highlight}>bound in one issue.</span>
+          </h1>
+
+          <p className={`${styles.heroSub} font-lato`}>
+            Our annual magazine collects the workshops, hackathons, projects and
+            people that made up the year at CSI-SFIT. Browse the current issue
+            and every edition since 2022.
+          </p>
+
+          <div className={`${styles.badgeRow} font-lato`}>
+            <span className={styles.badge}>{CURRENT.edition}</span>
+            <span className={styles.badge}>Free Digital Download</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Stats ---------- */}
+      <section className={styles.statsSection}>
+        <div className={styles.statsGrid}>
+          {STATS.map((s) => (
+            <div key={s.label} className={styles.statCard}>
+              <div className={`${styles.statValue} font-inter`}>{s.value}</div>
+              <div className={`${styles.statLabel} font-lato`}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------- Current issue: cover + download ---------- */}
+      <section className={styles.section}>
+        <div className={styles.showcaseGrid}>
+          <FeaturedCover cover={CURRENT.cover} year={CURRENT.year} />
+
+          <div className={styles.showcaseInfo}>
+            <span className={`${styles.eyebrowSmall} font-lato`}>
+              Get the latest issue
+            </span>
+
+            <h2 className={`${styles.showcaseTitle} font-inter`}>
+              PARADIGM: ISSUE 9
+            </h2>
+
+            <p className={`${styles.showcaseCopy} font-lato`}>
+              A magazine exploring how artificial intelligence is reshaping
+              technology, creativity and the world around us. Discover ideas,
+              insights and perspectives on the future of AI.
+            </p>
+
+            <div className={styles.showcaseMeta}>
+              <span>PDF &middot; {CURRENT.size}</span>
+              <span className={styles.metaDot} />
+              <span>{CURRENT.pages} pages</span>
+            </div>
+
+            <a
+              href={CURRENT.pdf}
+              download
+              className={`${styles.downloadBtn} font-lato`}
+            >
+              <DownloadIcon />
+              Download the {CURRENT.year} issue
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Inside this issue ---------- */}
+      <section className={styles.section}>
+        <div className={styles.sectionHead}>
+          <span className={`${styles.eyebrowSmall} font-lato`}>
+            Inside the {CURRENT.year} issue
+          </span>
+
+          <h2 className={`${styles.sectionTitle} font-inter`}>
+            What you&apos;ll find
+          </h2>
+        </div>
+
+        <div className={styles.pillarGrid}>
+          {CONTENTS.map((c) => (
+            <div key={c.title} className={styles.pillarCard}>
+              <span className={`${styles.pillarTag} font-inter`}>{c.tag}</span>
+              <h3 className="font-inter">{c.title}</h3>
+              <p className="font-lato">{c.copy}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------- Archive ---------- */}
+      <section className={styles.section}>
+        <div className={styles.sectionHead}>
+          <span className={`${styles.eyebrowSmall} font-lato`}>Archive</span>
+
+          <h2 className={`${styles.sectionTitle} font-inter`}>Past editions</h2>
+        </div>
+
+        <div className={styles.archiveGrid}>
+          {ARCHIVE.map((mag) => (
+            <div key={mag.year} className={styles.archiveCard}>
+              <ArchiveCover cover={mag.cover} year={mag.year} />
+
+              <div className={styles.archiveMeta}>
+                <div className={styles.archiveMetaText}>
+                  <span className={`${styles.archiveYear} font-inter`}>
+                    {mag.year}
+                  </span>
+                  <span className={`${styles.archivePages} font-lato`}>
+                    {mag.pages} pages &middot; {mag.size}
+                  </span>
+                </div>
+
+                <a
+                  href={mag.pdf}
+                  download
+                  aria-label={`Download the ${mag.year} magazine`}
+                  className={styles.archiveDownload}
+                >
+                  <DownloadIcon size={16} />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }

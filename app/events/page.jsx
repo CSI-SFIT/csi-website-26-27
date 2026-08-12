@@ -1,11 +1,8 @@
-// Kavya
 "use client";
 
 import { useState, useEffect } from "react";
 import styles from "./page.module.css";
-import { BlurFade } from "../../components/ui/blur-fade.jsx";
 import { NoiseTexture } from "../../components/ui/noise-texture";
-import { AnimatePresence, motion } from "motion/react";
 import { Inter, Lato } from "next/font/google";
 import Image from "next/image";
 import {
@@ -13,16 +10,12 @@ import {
   Calendar,
   MapPin,
   Clock,
-  Users,
   X,
   ChevronLeft,
   ChevronRight,
   Sparkles,
   Code2,
-  Shield,
   Trophy,
-  Cpu,
-  Globe,
   LayoutGrid,
   Share2,
   Check,
@@ -58,17 +51,9 @@ const TABS = [
 
 /* ─────────────────────────────────────────────────
    EVENT DATA
-   • Upcoming events = placeholders (update as needed)
-   • Past events     = real CSI SFIT events
-   
-   Once you drop images into public/events/<folder>/,
-   they'll render automatically as card covers + gallery.
    ───────────────────────────────────────────────── */
 
 const EVENTS_DATA = [
-  /* ── UPCOMING (keep or update as your team plans events) ── */
-
-  /* ── PAST — Real CSI SFIT Events ── */
   {
     id: "csi-day-2025-26",
     title: "CSI Day 2025–26",
@@ -96,7 +81,6 @@ const EVENTS_DATA = [
     gradient: "linear-gradient(135deg, #f97316 0%, #dc2626 100%)",
     Icon: Trophy,
     coverImage: null,
-    // Drop images into: public/events/csi-day/1.jpg, 2.jpg ... 6.jpg
     images: [
       "/events/csi-day/1.webp",
       "/events/csi-day/2.webp",
@@ -140,7 +124,7 @@ const EVENTS_DATA = [
     price: "Free",
     gradient: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
     Icon: Laptop,
-    coverImage: null,
+    coverImage: "./events_covers/nextjs_workshop.jpeg",
     images: [
       "/events/nextjs-workshop/1.webp",
       "/events/nextjs-workshop/2.webp",
@@ -180,7 +164,7 @@ const EVENTS_DATA = [
     price: "₹70",
     gradient: "linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)",
     Icon: Palette,
-    coverImage: null,
+    coverImage: "./events_covers/mosaic25.jpeg",
     images: [
       "/events/mosaic-25/1.webp",
       "/events/mosaic-25/2.webp",
@@ -225,7 +209,7 @@ const EVENTS_DATA = [
     price: "Free",
     gradient: "linear-gradient(135deg, #06b6d4 0%, #10b981 100%)",
     Icon: Camera,
-    coverImage: null,
+    coverImage: "./events_covers/frame_the_moment.jpeg",
     images: [
       "/events/frame-the-moment/1.webp",
       "/events/frame-the-moment/2.webp",
@@ -268,7 +252,7 @@ const EVENTS_DATA = [
     price: "₹250",
     gradient: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
     Icon: Code2,
-    coverImage: null,
+    coverImage: "./events_covers/hackx.jpeg",
     images: [
       "/events/hackx/1.webp",
       "/events/hackx/2.webp",
@@ -340,7 +324,10 @@ export default function EventsPage() {
   /* ── Arrow keys for lightbox navigation ── */
   useEffect(() => {
     if (lightboxIndex === null || !selectedEvent) return;
-    const allMedia = [...(selectedEvent.images || []), ...(selectedEvent.videos || [])];
+    const allMedia = [
+      ...(selectedEvent.images || []),
+      ...(selectedEvent.videos || []),
+    ];
     const handleKey = (e) => {
       if (e.key === "ArrowRight")
         setLightboxIndex((i) => (i + 1) % allMedia.length);
@@ -452,7 +439,7 @@ export default function EventsPage() {
   /* All media for lightbox (filtered to exclude failed image loads) */
   const allMedia = selectedEvent
     ? [...(selectedEvent.images || []), ...(selectedEvent.videos || [])].filter(
-        (src) => !failedImages.has(src)
+        (src) => !failedImages.has(src),
       )
     : [];
 
@@ -464,180 +451,153 @@ export default function EventsPage() {
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
 
-        <BlurFade delay={0.1} inView>
-          <div className={styles.heroLabel}>Explore</div>
-        </BlurFade>
+        <div className={styles.heroLabel}>Explore</div>
 
-        <BlurFade delay={0.2} inView>
-          <h1 className={styles.heroTitle}>
-            Our <span className={styles.highlight}>Events</span>
-          </h1>
-        </BlurFade>
+        <h1 className={styles.heroTitle}>
+          Our <span className={styles.highlight}>Events</span>
+        </h1>
 
-        <BlurFade delay={0.3} inView>
-          <p className={styles.heroSub}>
-            From hackathons to workshops, discover events that sharpen your
-            skills and connect you with the tech community.
-          </p>
-        </BlurFade>
+        <p className={styles.heroSub}>
+          From hackathons to workshops, discover events that sharpen your skills
+          and connect you with the tech community.
+        </p>
 
-        <BlurFade delay={0.4} inView>
-          <div className={styles.searchWrap}>
-            <Search size={18} className={styles.searchIcon} />
-            <input
-              type="text"
-              placeholder="Search events, topics, or technologies..."
-              className={styles.searchInput}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </BlurFade>
+        <div className={styles.searchWrap}>
+          <Search size={18} className={styles.searchIcon} />
+          <input
+            type="text"
+            placeholder="Search events, topics, or technologies..."
+            className={styles.searchInput}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
 
-        <BlurFade delay={0.5} inView>
-          <div className={styles.tabs}>
-            {TABS.map((tab) => (
-              <button
-                key={tab.id}
-                className={`${styles.tab} ${
-                  activeTab === tab.id ? styles.tabActive : ""
-                }`}
-                onClick={() => setActiveTab(tab.id)}
-              >
-                <tab.Icon size={14} />
-                {tab.label}
-                <span className={styles.tabCount}>{TAB_COUNTS[tab.id]}</span>
-              </button>
-            ))}
-          </div>
-        </BlurFade>
+        <div className={styles.tabs}>
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              className={`${styles.tab} ${
+                activeTab === tab.id ? styles.tabActive : ""
+              }`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              <tab.Icon size={14} />
+              {tab.label}
+              <span className={styles.tabCount}>{TAB_COUNTS[tab.id]}</span>
+            </button>
+          ))}
+        </div>
       </section>
 
       {/* ─── Events Grid ─── */}
       <section className={styles.eventsSection}>
         {filteredEvents.length > 0 ? (
           <div className={styles.grid}>
-            <AnimatePresence mode="popLayout">
-              {filteredEvents.map((event, i) => (
-                <motion.div
-                  key={event.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95, y: 16 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: i * 0.05,
-                    layout: { duration: 0.35, ease: "easeInOut" },
-                  }}
-                  style={{ height: "100%" }}
+            {filteredEvents.map((event) => (
+              <div
+                key={event.id}
+                className={styles.card}
+                onClick={() => setSelectedEvent(event)}
+              >
+                {/* Card header — cover photo or gradient placeholder */}
+                <div
+                  className={styles.cardHead}
+                  style={
+                    event.coverImage && !failedImages.has(event.coverImage)
+                      ? {}
+                      : { background: event.gradient }
+                  }
                 >
-                  <div
-                    className={styles.card}
-                    onClick={() => setSelectedEvent(event)}
-                  >
-                    {/* Card header — cover photo or gradient placeholder */}
-                    <div
-                      className={styles.cardHead}
-                      style={
-                        event.coverImage && !failedImages.has(event.coverImage)
-                          ? {}
-                          : { background: event.gradient }
-                      }
-                    >
-                      {event.coverImage && !failedImages.has(event.coverImage) ? (
-                        <Image
-                          src={event.coverImage}
-                          alt={event.title}
-                          fill
-                          unoptimized
-                          className={styles.cardHeadImg}
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          onError={() => handleImageError(event.coverImage)}
-                        />
-                      ) : (
-                        <event.Icon
-                          size={56}
-                          className={styles.cardHeadIcon}
-                        />
-                      )}
-                      <span
-                        className={`${styles.badge} ${badgeClass(event)}`}
-                      >
-                        {badgeLabel(event)}
-                      </span>
-                    </div>
+                  {event.coverImage && !failedImages.has(event.coverImage) ? (
+                    <Image
+                      src={event.coverImage}
+                      alt={event.title}
+                      fill
+                      unoptimized
+                      className={styles.cardHeadImg}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      onError={() => handleImageError(event.coverImage)}
+                    />
+                  ) : (
+                    <event.Icon size={56} className={styles.cardHeadIcon} />
+                  )}
+                  <span className={`${styles.badge} ${badgeClass(event)}`}>
+                    {badgeLabel(event)}
+                  </span>
+                </div>
 
-                    {/* body */}
-                    <div className={styles.cardBody}>
-                      <div className={styles.cardCategory}>
-                        {event.category}
-                      </div>
-                      <h3 className={styles.cardTitle}>{event.title}</h3>
-                      <p className={styles.cardDesc}>{event.description}</p>
+                {/* body */}
+                <div className={styles.cardBody}>
+                  <div className={styles.cardCategory}>{event.category}</div>
+                  <h3 className={styles.cardTitle}>{event.title}</h3>
+                  <p className={styles.cardDesc}>{event.description}</p>
 
-                      <div className={styles.cardMeta}>
-                        <span className={styles.metaItem}>
-                          <Calendar size={13} className={styles.metaIcon} />
-                          {event.date}
-                        </span>
-                        <span className={styles.metaItem}>
-                          <MapPin size={13} className={styles.metaIcon} />
-                          {event.venue}
-                        </span>
-                        <span className={styles.metaItem}>
-                          <Ticket size={13} className={styles.metaIcon} />
-                          {event.price}
-                        </span>
-                      </div>
-
-                      <div className={styles.tags}>
-                        {event.tags.map((tag) => (
-                          <span key={tag} className={styles.tag}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className={styles.cardFoot}>
-                        <button className={styles.btnDetails}>
-                          Details <ChevronRight size={14} />
-                        </button>
-
-                        <button
-                          className={`${styles.btnShare} ${
-                            copiedId === event.id ? styles.btnShareCopied : ""
-                          }`}
-                          onClick={(e) => handleShare(e, event)}
-                          title="Share event link"
-                        >
-                          {copiedId === event.id ? (
-                            <Check size={14} />
-                          ) : (
-                            <Share2 size={14} />
-                          )}
-                        </button>
-
-                        {event.status === "upcoming" && (
-                          <button
-                            className={
-                              registeredEvents.has(event.id)
-                                ? styles.btnRegistered
-                                : styles.btnRegister
-                            }
-                            onClick={(e) => toggleReg(e, event.id)}
-                          >
-                            {registeredEvents.has(event.id)
-                              ? "✓ Registered"
-                              : "Register"}
-                          </button>
-                        )}
-                      </div>
-                    </div>
+                  <div className={styles.cardMeta}>
+                    <span className={styles.metaItem}>
+                      <Calendar size={13} className={styles.metaIcon} />
+                      {event.date}
+                    </span>
+                    <span className={styles.metaItem}>
+                      <MapPin size={13} className={styles.metaIcon} />
+                      {event.venue}
+                    </span>
+                    <span className={styles.metaItem}>
+                      <Ticket size={13} className={styles.metaIcon} />
+                      {event.price}
+                    </span>
                   </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+
+                  <div className={styles.tags}>
+                    {event.tags.map((tag) => (
+                      <span key={tag} className={styles.tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className={styles.cardFoot}>
+                    <button
+                      className={styles.btnDetails}
+                      disabled={event.status === "past"}
+                    >
+                      {event.status === "past" ? "COMPLETED!" : "Details"}
+                      {event.status !== "past" && <ChevronRight size={14} />}
+                    </button>
+
+                    {/* Share button — hidden on mobile via CSS */}
+                    <button
+                      className={`${styles.btnShare} ${
+                        copiedId === event.id ? styles.btnShareCopied : ""
+                      }`}
+                      onClick={(e) => handleShare(e, event)}
+                      title="Share event link"
+                    >
+                      {copiedId === event.id ? (
+                        <Check size={14} />
+                      ) : (
+                        <Share2 size={14} />
+                      )}
+                    </button>
+
+                    {event.status === "upcoming" && (
+                      <button
+                        className={
+                          registeredEvents.has(event.id)
+                            ? styles.btnRegistered
+                            : styles.btnRegister
+                        }
+                        onClick={(e) => toggleReg(e, event.id)}
+                      >
+                        {registeredEvents.has(event.id)
+                          ? "✓ Registered"
+                          : "Register"}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <div className={styles.empty}>
@@ -652,247 +612,206 @@ export default function EventsPage() {
       </section>
 
       {/* ─── Event Detail Modal ─── */}
-      <AnimatePresence>
-        {selectedEvent && (
-          <motion.div
-            className={styles.overlay}
-            onClick={() => setSelectedEvent(null)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <motion.div
-              className={styles.modal}
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, y: 24, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 24, scale: 0.97 }}
-              transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
-            >
-              {/* header */}
-              <div className={styles.modalHead}>
-                <div
-                  className={styles.modalGrad}
-                  style={{ background: selectedEvent.gradient }}
-                />
-                <button
-                  className={styles.modalClose}
-                  onClick={() => setSelectedEvent(null)}
+      {selectedEvent && (
+        <div className={styles.overlay} onClick={() => setSelectedEvent(null)}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            {/* header */}
+            <div className={styles.modalHead}>
+              <div
+                className={styles.modalGrad}
+                style={{ background: selectedEvent.gradient }}
+              />
+              <button
+                className={styles.modalClose}
+                onClick={() => setSelectedEvent(null)}
+              >
+                <X size={16} />
+              </button>
+              <h2 className={styles.modalTitle}>{selectedEvent.title}</h2>
+              <p className={styles.modalTagline}>{selectedEvent.tagline}</p>
+              <div className={styles.modalBadges}>
+                <span
+                  className={`${styles.badge} ${badgeClass(selectedEvent)}`}
                 >
-                  <X size={16} />
-                </button>
-                <h2 className={styles.modalTitle}>{selectedEvent.title}</h2>
-                <p className={styles.modalTagline}>
-                  {selectedEvent.tagline}
-                </p>
-                <div className={styles.modalBadges}>
-                  <span
-                    className={`${styles.badge} ${badgeClass(selectedEvent)}`}
-                  >
-                    {badgeLabel(selectedEvent)}
-                  </span>
+                  {badgeLabel(selectedEvent)}
+                </span>
+              </div>
+            </div>
+
+            {/* body */}
+            <div className={styles.modalBody}>
+              <p className={styles.modalDesc}>
+                {selectedEvent.fullDescription}
+              </p>
+
+              <div className={styles.modalInfo}>
+                <div className={styles.infoItem}>
+                  <Calendar size={16} className={styles.infoIcon} />
+                  {selectedEvent.date}
+                </div>
+                <div className={styles.infoItem}>
+                  <Clock size={16} className={styles.infoIcon} />
+                  {selectedEvent.time}
+                </div>
+                <div className={styles.infoItem}>
+                  <MapPin size={16} className={styles.infoIcon} />
+                  {selectedEvent.venue}
+                </div>
+                <div className={styles.infoItem}>
+                  <Ticket size={16} className={styles.infoIcon} />
+                  {selectedEvent.price}
                 </div>
               </div>
 
-              {/* body */}
-              <div className={styles.modalBody}>
-                <p className={styles.modalDesc}>
-                  {selectedEvent.fullDescription}
-                </p>
-
-                <div className={styles.modalInfo}>
-                  <div className={styles.infoItem}>
-                    <Calendar size={16} className={styles.infoIcon} />
-                    {selectedEvent.date}
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Clock size={16} className={styles.infoIcon} />
-                    {selectedEvent.time}
-                  </div>
-                  <div className={styles.infoItem}>
-                    <MapPin size={16} className={styles.infoIcon} />
-                    {selectedEvent.venue}
-                  </div>
-                  <div className={styles.infoItem}>
-                    <Ticket size={16} className={styles.infoIcon} />
-                    {selectedEvent.price}
-                  </div>
-                </div>
-
-                <div
-                  className={styles.tags}
-                  style={{ marginBottom: "1.5rem" }}
-                >
-                  {selectedEvent.tags.map((tag) => (
-                    <span key={tag} className={styles.tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className={styles.modalHighlights}>
-                  <h4 className={styles.modalHighlightsTitle}>Highlights</h4>
-                  {selectedEvent.highlights.map((item, i) => (
-                    <div key={i} className={styles.highlightItem}>
-                      <span className={styles.highlightDot} />
-                      {item}
-                    </div>
-                  ))}
-                </div>
-
-                {/* ── Photo / Video Gallery ── */}
-                {allMedia.length > 0 && (
-                  <div className={styles.gallerySection}>
-                    <h4 className={styles.gallerySectionTitle}>
-                      Gallery ({allMedia.length})
-                    </h4>
-                    <div className={styles.galleryGrid}>
-                      {allMedia.map((src, i) => (
-                        <div
-                          key={i}
-                          className={styles.galleryItem}
-                          onClick={() => setLightboxIndex(i)}
-                        >
-                          {isVideo(src) ? (
-                            <>
-                              <video src={src} muted preload="none" />
-                              <div className={styles.videoBadge}>
-                                <Play size={28} />
-                              </div>
-                            </>
-                          ) : (
-                            <Image
-                              src={src}
-                              alt={`${selectedEvent.title} photo ${i + 1}`}
-                              fill
-                              unoptimized
-                              sizes="200px"
-                              style={{ objectFit: "cover" }}
-                              onError={() => handleImageError(src)}
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+              <div className={styles.tags} style={{ marginBottom: "1.5rem" }}>
+                {selectedEvent.tags.map((tag) => (
+                  <span key={tag} className={styles.tag}>
+                    {tag}
+                  </span>
+                ))}
               </div>
 
-              {/* footer — only for upcoming events */}
-              {selectedEvent.status === "upcoming" && (
-                <div className={styles.modalFoot}>
-                  <button
-                    className={
-                      registeredEvents.has(selectedEvent.id)
-                        ? styles.modalRegBtnDone
-                        : styles.modalRegBtn
-                    }
-                    onClick={(e) => toggleReg(e, selectedEvent.id)}
-                  >
-                    {registeredEvents.has(selectedEvent.id)
-                      ? "✓ Registered — Click to Cancel"
-                      : "Register Now"}
-                  </button>
-                  <span className={styles.modalCapacity}>
-                    {selectedEvent.maxCapacity - selectedEvent.registrations}{" "}
-                    spots left
-                  </span>
+              <div className={styles.modalHighlights}>
+                <h4 className={styles.modalHighlightsTitle}>Highlights</h4>
+                {selectedEvent.highlights.map((item, i) => (
+                  <div key={i} className={styles.highlightItem}>
+                    <span className={styles.highlightDot} />
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              {/* ── Photo / Video Gallery ── */}
+              {allMedia.length > 0 && (
+                <div className={styles.gallerySection}>
+                  <h4 className={styles.gallerySectionTitle}>
+                    Gallery ({allMedia.length})
+                  </h4>
+                  <div className={styles.galleryGrid}>
+                    {allMedia.map((src, i) => (
+                      <div
+                        key={i}
+                        className={styles.galleryItem}
+                        onClick={() => setLightboxIndex(i)}
+                      >
+                        {isVideo(src) ? (
+                          <>
+                            <video src={src} muted preload="none" />
+                            <div className={styles.videoBadge}>
+                              <Play size={28} />
+                            </div>
+                          </>
+                        ) : (
+                          <Image
+                            src={src}
+                            alt={`${selectedEvent.title} photo ${i + 1}`}
+                            fill
+                            unoptimized
+                            sizes="200px"
+                            style={{ objectFit: "cover" }}
+                            onError={() => handleImageError(src)}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+
+            {/* footer — only for upcoming events */}
+            {selectedEvent.status === "upcoming" && (
+              <div className={styles.modalFoot}>
+                <button
+                  className={
+                    registeredEvents.has(selectedEvent.id)
+                      ? styles.modalRegBtnDone
+                      : styles.modalRegBtn
+                  }
+                  onClick={(e) => toggleReg(e, selectedEvent.id)}
+                >
+                  {registeredEvents.has(selectedEvent.id)
+                    ? "✓ Registered — Click to Cancel"
+                    : "Register Now"}
+                </button>
+                <span className={styles.modalCapacity}>
+                  {selectedEvent.maxCapacity - selectedEvent.registrations}{" "}
+                  spots left
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* ─── Lightbox ─── */}
-      <AnimatePresence>
-        {lightboxIndex !== null && allMedia.length > 0 && (
-          <motion.div
-            className={styles.lightbox}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+      {lightboxIndex !== null && allMedia.length > 0 && (
+        <div className={styles.lightbox} onClick={() => setLightboxIndex(null)}>
+          <button
+            className={styles.lightboxClose}
             onClick={() => setLightboxIndex(null)}
           >
+            <X size={18} />
+          </button>
+
+          {/* Prev */}
+          {allMedia.length > 1 && (
             <button
-              className={styles.lightboxClose}
-              onClick={() => setLightboxIndex(null)}
+              className={`${styles.lightboxNav} ${styles.lightboxPrev}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIndex(
+                  (lightboxIndex - 1 + allMedia.length) % allMedia.length,
+                );
+              }}
             >
-              <X size={18} />
+              <ChevronLeft size={20} />
             </button>
+          )}
 
-            {/* Prev */}
-            {allMedia.length > 1 && (
-              <button
-                className={`${styles.lightboxNav} ${styles.lightboxPrev}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLightboxIndex(
-                    (lightboxIndex - 1 + allMedia.length) % allMedia.length
-                  );
-                }}
-              >
-                <ChevronLeft size={20} />
-              </button>
+          {/* Media */}
+          <div onClick={(e) => e.stopPropagation()}>
+            {isVideo(allMedia[lightboxIndex]) ? (
+              <video
+                src={allMedia[lightboxIndex]}
+                className={styles.lightboxVideo}
+                controls
+                autoPlay
+              />
+            ) : (
+              <img
+                src={allMedia[lightboxIndex]}
+                alt={`Photo ${lightboxIndex + 1}`}
+                className={styles.lightboxMedia}
+              />
             )}
+          </div>
 
-            {/* Media */}
-            <div onClick={(e) => e.stopPropagation()}>
-              {isVideo(allMedia[lightboxIndex]) ? (
-                <video
-                  src={allMedia[lightboxIndex]}
-                  className={styles.lightboxVideo}
-                  controls
-                  autoPlay
-                />
-              ) : (
-                <img
-                  src={allMedia[lightboxIndex]}
-                  alt={`Photo ${lightboxIndex + 1}`}
-                  className={styles.lightboxMedia}
-                />
-              )}
-            </div>
+          {/* Next */}
+          {allMedia.length > 1 && (
+            <button
+              className={`${styles.lightboxNav} ${styles.lightboxNext}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIndex((lightboxIndex + 1) % allMedia.length);
+              }}
+            >
+              <ChevronRight size={20} />
+            </button>
+          )}
 
-            {/* Next */}
-            {allMedia.length > 1 && (
-              <button
-                className={`${styles.lightboxNav} ${styles.lightboxNext}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLightboxIndex(
-                    (lightboxIndex + 1) % allMedia.length
-                  );
-                }}
-              >
-                <ChevronRight size={20} />
-              </button>
-            )}
+          <div className={styles.lightboxCounter}>
+            {lightboxIndex + 1} / {allMedia.length}
+          </div>
+        </div>
+      )}
 
-            <div className={styles.lightboxCounter}>
-              {lightboxIndex + 1} / {allMedia.length}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ─── Toast Notification ─── */}
-      <AnimatePresence>
-        {toastMessage && (
-          <motion.div
-            className={styles.toast}
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 15, scale: 0.9 }}
-            transition={{ duration: 0.25 }}
-          >
-            <Check size={16} className={styles.toastIcon} />
-            <span>{toastMessage}</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {toastMessage && (
+        <div className={styles.toast}>
+          <Check size={16} className={styles.toastIcon} />
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </main>
   );
 }

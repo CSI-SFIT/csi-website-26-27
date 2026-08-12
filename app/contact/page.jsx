@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from "react";
 import { ArrowRight, MapPin, Mail, Phone, Clock } from "lucide-react";
-import { BlurFade } from "../../components/ui/blur-fade.jsx";
 import { Inter, Lato } from "next/font/google";
 import styles from "./page.module.css";
 
@@ -108,22 +107,16 @@ export default function Contact() {
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
 
-        <BlurFade delay={0.1} inView>
-          <div className={styles.heroLabel}>Get In Touch</div>
-        </BlurFade>
+        <div className={styles.heroLabel}>Get In Touch</div>
 
-        <BlurFade delay={0.2} inView>
-          <h1 className={styles.heroTitle}>
-            Contact <span className={styles.highlight}>Us</span>
-          </h1>
-        </BlurFade>
+        <h1 className={styles.heroTitle}>
+          Contact <span className={styles.highlight}>Us</span>
+        </h1>
 
-        <BlurFade delay={0.3} inView>
-          <p className={styles.heroSub}>
-            Have a question, want to collaborate, or interested in joining CSI
-            SFIT? We would love to hear from you.
-          </p>
-        </BlurFade>
+        <p className={styles.heroSub}>
+          Have a question, want to collaborate, or interested in joining CSI
+          SFIT? We would love to hear from you.
+        </p>
       </section>
 
       {/* ======================================================
@@ -131,83 +124,77 @@ export default function Contact() {
       ====================================================== */}
 
       <section className={styles.section}>
-        <BlurFade delay={0.1} inView>
-          <div className={styles.sectionHead}>
-            <span className={styles.num}>01</span>
-            <h2>Send a Message</h2>
-            <span className={styles.line} />
-          </div>
-        </BlurFade>
+        <div className={styles.sectionHead}>
+          <span className={styles.num}>01</span>
+          <h2>Send a Message</h2>
+          <span className={styles.line} />
+        </div>
 
-        <BlurFade delay={0.2} inView>
-          <p className={styles.sectionSub}>
-            Fill out the form below and our team will get back to you shortly.
-          </p>
-        </BlurFade>
+        <p className={styles.sectionSub}>
+          Fill out the form below and our team will get back to you shortly.
+        </p>
 
-        <BlurFade delay={0.3} inView>
-          <div className={styles.glass}>
-            <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
-              <div className={styles.fieldRow}>
-                <div className={styles.field}>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Name"
-                    required
-                  />
-                  <label htmlFor="name">Name</label>
-                </div>
-
-                <div className={styles.field}>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    required
-                  />
-                  <label htmlFor="email">Email</label>
-                </div>
+        <div className={styles.glass}>
+          <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.fieldRow}>
+              <div className={styles.field}>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                  required
+                />
+                <label htmlFor="name">Name</label>
               </div>
 
               <div className={styles.field}>
                 <input
-                  id="subject"
-                  name="subject"
-                  type="text"
-                  placeholder="Subject"
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
                   required
                 />
-                <label htmlFor="subject">Subject</label>
+                <label htmlFor="email">Email</label>
               </div>
+            </div>
 
-              <div className={styles.field}>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Message"
-                  maxLength={500}
-                  required
-                />
-                <label htmlFor="message">Message</label>
-              </div>
+            <div className={styles.field}>
+              <input
+                id="subject"
+                name="subject"
+                type="text"
+                placeholder="Subject"
+                required
+              />
+              <label htmlFor="subject">Subject</label>
+            </div>
 
-              <button
-                type="submit"
-                className={styles.sendBtn}
-                disabled={isSubmitting}
-              >
-                <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+            <div className={styles.field}>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Message"
+                maxLength={500}
+                required
+              />
+              <label htmlFor="message">Message</label>
+            </div>
 
-                {!isSubmitting && <ArrowRight size={18} />}
-              </button>
+            <button
+              type="submit"
+              className={styles.sendBtn}
+              disabled={isSubmitting}
+            >
+              <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
 
-              {status && <p className={styles.status}>{status}</p>}
-            </form>
-          </div>
-        </BlurFade>
+              {!isSubmitting && <ArrowRight size={18} />}
+            </button>
+
+            {status && <p className={styles.status}>{status}</p>}
+          </form>
+        </div>
       </section>
 
       {/* ======================================================
@@ -215,82 +202,74 @@ export default function Contact() {
       ====================================================== */}
 
       <section className={styles.section}>
-        <BlurFade delay={0.1} inView>
-          <div className={styles.sectionHead}>
-            <span className={styles.num}>02</span>
-            <h2>Contact Information</h2>
-            <span className={styles.line} />
-          </div>
-        </BlurFade>
+        <div className={styles.sectionHead}>
+          <span className={styles.num}>02</span>
+          <h2>Contact Information</h2>
+          <span className={styles.line} />
+        </div>
 
-        <BlurFade delay={0.2} inView>
-          <p className={styles.sectionSub}>
-            Reach out to us through any of the channels below.
-          </p>
-        </BlurFade>
+        <p className={styles.sectionSub}>
+          Reach out to us through any of the channels below.
+        </p>
 
         <div className={styles.infoGrid}>
-          <BlurFade delay={0.25} inView>
-            <div className={styles.infoCard}>
-              <div className={styles.infoIcon}>
-                <Mail size={20} />
-              </div>
+          <div className={styles.infoCard}>
+            <div className={styles.infoIcon}>
+              <Mail size={20} />
+            </div>
 
-              <div>
-                <div className={styles.infoLabel}>Email</div>
+            <div>
+              <div className={styles.infoLabel}>Email</div>
 
-                <a href="mailto:csi@sfit.ac.in" className={styles.infoValue}>
-                  csi@sfit.ac.in
+              <a href="mailto:csi@sfit.ac.in" className={styles.infoValue}>
+                csi@sfit.ac.in
+              </a>
+            </div>
+          </div>
+
+          <div className={styles.infoCard}>
+            <div className={styles.infoIcon}>
+              <Phone size={20} />
+            </div>
+
+            <div>
+              <div className={styles.infoLabel}>Phone</div>
+
+              <div className={styles.infoValue}>
+                <a href="tel:+919967706569">Chairperson: +91 9967706569</a>
+
+                <br />
+
+                <a href="tel:+918355844274">Vice Chairperson: +91 8355844274</a>
+
+                <br />
+
+                <a href="tel:+919372692745">
+                  General Secretary: +91 9372692745
                 </a>
+
+                <br />
+
+                <a href="tel:+919372692745">Treasurer: +91 8452809552</a>
               </div>
             </div>
-          </BlurFade>
+          </div>
 
-          <BlurFade delay={0.3} inView>
-            <div className={styles.infoCard}>
-              <div className={styles.infoIcon}>
-                <Phone size={20} />
-              </div>
+          <div className={styles.infoCard}>
+            <div className={styles.infoIcon}>
+              <Clock size={20} />
+            </div>
 
-              <div>
-                <div className={styles.infoLabel}>Phone</div>
+            <div>
+              <div className={styles.infoLabel}>Office Hours</div>
 
-                <div className={styles.infoValue}>
-                  <a href="tel:+919967706569">Chairperson: +91 9967706569</a>
-
-                  <br />
-
-                  <a href="tel:+918355844274">Vice Chairperson: +91 8355844274</a>
-
-                  <br />
-
-                  <a href="tel:+919372692745">General Secretary: +91 9372692745</a>
-
-                  <br />
-
-                  <a href="tel:+919372692745">Treasurer: +91 8452809552</a>
-                </div>
+              <div className={styles.infoValue}>
+                Monday – Friday
+                <br />
+                9:00 AM – 5:00 PM
               </div>
             </div>
-          </BlurFade>
-
-          <BlurFade delay={0.35} inView>
-            <div className={styles.infoCard}>
-              <div className={styles.infoIcon}>
-                <Clock size={20} />
-              </div>
-
-              <div>
-                <div className={styles.infoLabel}>Office Hours</div>
-
-                <div className={styles.infoValue}>
-                  Monday – Friday
-                  <br />
-                  9:00 AM – 5:00 PM
-                </div>
-              </div>
-            </div>
-          </BlurFade>
+          </div>
         </div>
       </section>
 
@@ -299,36 +278,30 @@ export default function Contact() {
       ====================================================== */}
 
       <section className={styles.section}>
-        <BlurFade delay={0.1} inView>
-          <div className={styles.sectionHead}>
-            <span className={styles.num}>03</span>
-            <h2>Location</h2>
-            <span className={styles.line} />
+        <div className={styles.sectionHead}>
+          <span className={styles.num}>03</span>
+          <h2>Location</h2>
+          <span className={styles.line} />
+        </div>
+
+        <p className={styles.sectionSub}>
+          St. Francis Institute of Technology, Mount Poinsur, Borivali West,
+          Mumbai – 400103
+        </p>
+
+        <div className={styles.locationCard}>
+          <iframe
+            loading="lazy"
+            allowFullScreen
+            title="CSI SFIT Location"
+            src="https://www.google.com/maps?q=St.+Francis+Institute+of+Technology+Borivali+West+Mumbai&output=embed"
+          />
+
+          <div className={styles.mapTag}>
+            <MapPin size={16} />
+            St. Francis Institute of Technology
           </div>
-        </BlurFade>
-
-        <BlurFade delay={0.2} inView>
-          <p className={styles.sectionSub}>
-            St. Francis Institute of Technology, Mount Poinsur, Borivali West,
-            Mumbai – 400103
-          </p>
-        </BlurFade>
-
-        <BlurFade delay={0.3} inView>
-          <div className={styles.locationCard}>
-            <iframe
-              loading="lazy"
-              allowFullScreen
-              title="CSI SFIT Location"
-              src="https://www.google.com/maps?q=St.+Francis+Institute+of+Technology+Borivali+West+Mumbai&output=embed"
-            />
-
-            <div className={styles.mapTag}>
-              <MapPin size={16} />
-              St. Francis Institute of Technology
-            </div>
-          </div>
-        </BlurFade>
+        </div>
       </section>
 
       {/* ======================================================
@@ -336,48 +309,42 @@ export default function Contact() {
       ====================================================== */}
 
       <section className={styles.section}>
-        <BlurFade delay={0.1} inView>
-          <div className={styles.sectionHead}>
-            <span className={styles.num}>04</span>
-            <h2>Join the Community</h2>
-            <span className={styles.line} />
+        <div className={styles.sectionHead}>
+          <span className={styles.num}>04</span>
+          <h2>Join the Community</h2>
+          <span className={styles.line} />
+        </div>
+
+        <p className={styles.sectionSub}>
+          Stay updated with events, workshops, hackathons, and announcements.
+        </p>
+
+        <div className={styles.waCard}>
+          <div className={styles.waIcon}>
+            <WhatsAppIcon />
           </div>
-        </BlurFade>
 
-        <BlurFade delay={0.2} inView>
-          <p className={styles.sectionSub}>
-            Stay updated with events, workshops, hackathons, and announcements.
-          </p>
-        </BlurFade>
+          <div className={styles.waBody}>
+            <div className={styles.waLabel}>WhatsApp Community</div>
 
-        <BlurFade delay={0.3} inView>
-          <div className={styles.waCard}>
-            <div className={styles.waIcon}>
-              <WhatsAppIcon />
-            </div>
+            <h3 className={styles.waTitle}>Code with CSI — Stay Connected</h3>
 
-            <div className={styles.waBody}>
-              <div className={styles.waLabel}>WhatsApp Community</div>
-
-              <h3 className={styles.waTitle}>Code with CSI — Stay Connected</h3>
-
-              <p className={styles.waDesc}>
-                Join our WhatsApp community for updates on events, workshops,
-                hackathons, and everything happening at CSI SFIT.
-              </p>
-            </div>
-
-            <a
-              href="https://chat.whatsapp.com/JWRSyFzmrzT3YJFr3HIM5H"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.waButton}
-            >
-              <WhatsAppIcon />
-              Join Now
-            </a>
+            <p className={styles.waDesc}>
+              Join our WhatsApp community for updates on events, workshops,
+              hackathons, and everything happening at CSI SFIT.
+            </p>
           </div>
-        </BlurFade>
+
+          <a
+            href="https://chat.whatsapp.com/JWRSyFzmrzT3YJFr3HIM5H"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.waButton}
+          >
+            <WhatsAppIcon />
+            Join Now
+          </a>
+        </div>
       </section>
     </main>
   );

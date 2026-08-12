@@ -492,3 +492,10 @@
     padding: 0 1rem 0.9rem;
   }
 }
+
+
+@media (max-width: 640px) {
+  .faqSection {
+    display: none;
+  }
+}

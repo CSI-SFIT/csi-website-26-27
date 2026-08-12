@@ -1,8 +1,4 @@
-// Aryan
-// Aryan
-
 "use client";
-import { BlurFade } from "../../components/ui/blur-fade.jsx";
 import styles from "./page.module.css";
 import { Inter, Lato } from "next/font/google";
 
@@ -57,34 +53,26 @@ export default function AboutPage() {
         <div className={styles.heroGlow} />
 
         <div className={styles.heroInner}>
-          <BlurFade delay={0.1} inView>
-            <div className={`${styles.heroLabel} font-lato`}>
-              About CSI SFIT
-            </div>
-          </BlurFade>
+          <div className={`${styles.heroLabel} font-lato`}>
+            About CSI SFIT
+          </div>
 
-          <BlurFade delay={0.2} inView>
-            <h1 id="about-heading" className={`${styles.heroTitle} font-inter`}>
-              Building the campus&apos;s{" "}
-              <span className={styles.highlight}>technical backbone.</span>
-            </h1>
-          </BlurFade>
+          <h1 id="about-heading" className={`${styles.heroTitle} font-inter`}>
+            Building the campus&apos;s{" "}
+            <span className={styles.highlight}>technical backbone.</span>
+          </h1>
 
-          <BlurFade delay={0.3} inView>
-            <p className={`${styles.heroSub} font-lato`}>
-              CSI-SFIT is the student chapter of the Computer Society of India
-              at St. Francis Institute of Technology — a community of builders,
-              organisers and learners turning curiosity into working code.
-            </p>
-          </BlurFade>
+          <p className={`${styles.heroSub} font-lato`}>
+            CSI-SFIT is the student chapter of the Computer Society of India
+            at St. Francis Institute of Technology — a community of builders,
+            organisers and learners turning curiosity into working code.
+          </p>
 
-          <BlurFade delay={0.4} inView>
-            <div className={`${styles.badgeRow} font-lato`}>
-              <span className={styles.badge}>Est. Student Chapter</span>
+          <div className={`${styles.badgeRow} font-lato`}>
+            <span className={styles.badge}>Est. Student Chapter</span>
 
-              <span className={styles.badge}>Technical Domain · SFIT</span>
-            </div>
-          </BlurFade>
+            <span className={styles.badge}>Technical Domain · SFIT</span>
+          </div>
         </div>
       </section>
 

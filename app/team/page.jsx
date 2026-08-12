@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { FaLinkedinIn, FaGithub, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
-import { BlurFade } from "../../components/ui/blur-fade";
 import styles from "./page.module.css";
 import { Inter, Lato } from "next/font/google";
 import { teamData2025, teamData2026 } from "./teamData";
@@ -31,7 +30,7 @@ const lato = Lato({
   display: "swap",
 });
 
-const YEARS = ["2025-26", "2026-27"];
+const YEARS = ["2025-26"];
 
 const DOMAINS = [
   {
@@ -160,11 +159,7 @@ function SocialLinks({ socials }) {
 
 function MemberCard({ member, index }) {
   return (
-    <BlurFade
-      delay={0.1 + index * 0.05}
-      inView
-      className={styles.memberCard}
-    >
+    <div className={styles.memberCard}>
       <div className={styles.memberAvatarWrap}>
         <Image
           src={member.avatar}
@@ -181,7 +176,7 @@ function MemberCard({ member, index }) {
       <p className={styles.memberRole}>{member.role}</p>
 
       <SocialLinks socials={member.socials} />
-    </BlurFade>
+    </div>
   );
 }
 
@@ -300,7 +295,7 @@ function YearNavigation({ currentYear, onYearChange }) {
 }
 
 export default function TeamPage() {
-  const [currentYear, setCurrentYear] = useState("2026-27");
+  const [currentYear, setCurrentYear] = useState("2025-26");
 
   const teamData = useMemo(() => generateTeamData(currentYear), [currentYear]);
 
@@ -316,22 +311,16 @@ export default function TeamPage() {
       <section className={styles.hero} aria-labelledby="team-heading">
         <div className={styles.heroGlow} />
 
-        <BlurFade delay={0.1} inView>
-          <div className={styles.heroLabel}>Our Team</div>
-        </BlurFade>
+        <div className={styles.heroLabel}>Our Team</div>
 
-        <BlurFade delay={0.2} inView>
-          <h1 id="team-heading" className={styles.heroTitle}>
-            Meet the <span className={styles.highlight}>CSI SFIT</span> Family
-          </h1>
-        </BlurFade>
+        <h1 id="team-heading" className={styles.heroTitle}>
+          Meet the <span className={styles.highlight}>CSI SFIT</span> Family
+        </h1>
 
-        <BlurFade delay={0.3} inView>
-          <p className={styles.heroSub}>
-            Meet the passionate team behind CSI SFIT, working together to build,
-            learn, and grow through technology.
-          </p>
-        </BlurFade>
+        <p className={styles.heroSub}>
+          Meet the passionate team behind CSI SFIT, working together to build,
+          learn, and grow through technology.
+        </p>
       </section>
 
       <section className={styles.section}>
