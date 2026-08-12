@@ -1,5 +1,5 @@
 import "./globals.css";
-// import CustomCursor from "./components/CustomCursor";
+import CustomCursor from "./components/CustomCursor";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
         className="bg-black text-white"
       >
+        <CustomCursor />
         <Navbar />
 
         <div className="overflow-x-hidden">
