@@ -4,7 +4,6 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Inter } from "next/font/google";
-import { BlurFade } from "../../components/ui/blur-fade.jsx";
 
 const galleryItems = [
   // --- CSI DAY ---
@@ -460,21 +459,15 @@ export default function GalleryPage() {
   return (
     <div className={styles.galleryContainer}>
       <section className={styles.hero}>
-        <BlurFade delay={0.1} inView>
-          <div className={styles.heroLabel}>Explore</div>
-        </BlurFade>
+        <div className={styles.heroLabel}>Explore</div>
 
-        <BlurFade delay={0.2} inView>
-          <h1 className={`${styles.heroTitle} ${inter.className}`}>
-            Our <span className={styles.highlight}>Gallery</span>
-          </h1>
-        </BlurFade>
+        <h1 className={`${styles.heroTitle} ${inter.className}`}>
+          Our <span className={styles.highlight}>Gallery</span>
+        </h1>
 
-        <BlurFade delay={0.3} inView>
-          <p className={styles.heroSub}>
-            Glimpses of our events, workshops, and memories.
-          </p>
-        </BlurFade>
+        <p className={styles.heroSub}>
+          Glimpses of our events, workshops, and memories.
+        </p>
       </section>
 
       <div className={styles.filterContainer}>

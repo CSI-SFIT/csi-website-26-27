@@ -42,7 +42,7 @@ const OFFERINGS = [
     title: "Technical Workshops",
     description:
       "Hands-on workshops on cutting-edge technologies and programming languages.",
-    iconBg: "bg-orange-500/15",
+    iconBg: "bg-gray-500/15",
     iconText: "text-orange-400",
   },
   {
@@ -50,7 +50,7 @@ const OFFERINGS = [
     title: "Coding Competitions",
     description:
       "Regular coding contests to sharpen your problem-solving skills.",
-    iconBg: "bg-emerald-500/15",
+    iconBg: "bg-gray-500/15",
     iconText: "text-emerald-400",
   },
   {
@@ -58,7 +58,7 @@ const OFFERINGS = [
     title: "Industry Connect",
     description:
       "Networking events with industry professionals and tech leaders.",
-    iconBg: "bg-purple-500/15",
+    iconBg: "bg-gray-500/15",
     iconText: "text-purple-400",
   },
   {
@@ -66,7 +66,7 @@ const OFFERINGS = [
     title: "Research Projects",
     description:
       "Collaborative research opportunities in emerging tech domains.",
-    iconBg: "bg-pink-500/15",
+    iconBg: "bg-gray-500/15",
     iconText: "text-pink-400",
   },
 ];
@@ -189,7 +189,7 @@ export default function Home() {
               </div>
 
               <div className="w-full max-w-sm sm:w-auto sm:max-w-none">
-                <HeroButton wide href="/paradigm-magazine">
+                <HeroButton wide href="/magazine">
                   <span>View Paradigm Edition 9 Magazine</span>
                   <BookOpen
                     size={18}
@@ -211,8 +211,7 @@ export default function Home() {
               <SectionMark index={1} label="About" />
 
               <h2 className="mb-6 font-inter text-3xl font-bold leading-tight text-black sm:text-4xl md:text-5xl">
-                We build with <span className="text-white">code</span>, not just
-                about it.
+                We make it happen <span className="text-white"> with code</span>
               </h2>
 
               <p className="mb-4 text-base leading-relaxed text-black/80 sm:text-lg">
@@ -274,7 +273,7 @@ export default function Home() {
                   </span>
 
                   <div
-                    className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl ${item.iconBg} ${item.iconText} shadow-lg`}
+                    className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl ${item.iconBg} shadow-lg`}
                   >
                     <item.icon size={22} />
                   </div>

@@ -1,5 +1,5 @@
 import "./globals.css";
-import CustomCursor from "./components/CustomCursor";
+// import CustomCursor from "./components/CustomCursor";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -11,11 +11,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="bg-black text-white overflow-x-hidden">
-        <CustomCursor />
+      <body
+        suppressHydrationWarning
+        className="bg-black text-white"
+      >
         <Navbar />
 
-        {children}
+        <div className="overflow-x-hidden">
+          {children}
+        </div>
 
         <Footer />
       </body>
