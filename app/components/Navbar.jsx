@@ -12,6 +12,7 @@ const lato = Lato({
 
 const navItems = [
   { name: "Home", href: "/" },
+  { name: "Mosaic", href: "/mosaic" },
   { name: "About", href: "/about" },
   { name: "Events", href: "/events" },
   { name: "Team", href: "/team" },
