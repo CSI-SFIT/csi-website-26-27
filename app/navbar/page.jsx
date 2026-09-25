@@ -10,6 +10,7 @@ const lato = Lato({
 
 const navItems = [
   { name: "Home", href: "/" },
+  { name: "Mosaic", href: "/mosaic" },
   { name: "About", href: "/about" },
   { name: "Events", href: "/events" },
   { name: "Team", href: "/team" },
@@ -32,9 +33,6 @@ export default function NavbarPage() {
         text-white
       `}
     >
-      {/* ─────────────────────────────────────────────
-          Glass background
-      ───────────────────────────────────────────── */}
       <div
         className="
           fixed inset-0
@@ -45,7 +43,6 @@ export default function NavbarPage() {
         "
       />
 
-      {/* Cyan glass gradient */}
       <div
         className="
           fixed inset-0
@@ -57,7 +54,6 @@ export default function NavbarPage() {
         "
       />
 
-      {/* Subtle orange glow */}
       <div
         className="
           fixed
@@ -72,7 +68,6 @@ export default function NavbarPage() {
         "
       />
 
-      {/* Top highlight */}
       <div
         className="
           fixed
@@ -88,11 +83,7 @@ export default function NavbarPage() {
         "
       />
 
-      {/* ─────────────────────────────────────────────
-          Content
-      ───────────────────────────────────────────── */}
       <div className="relative z-10 min-h-screen">
-        {/* Header */}
         <header
           className="
             flex
@@ -104,7 +95,6 @@ export default function NavbarPage() {
             px-5
           "
         >
-          {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-3"
@@ -121,7 +111,6 @@ export default function NavbarPage() {
             </span>
           </Link>
 
-          {/* Close */}
           <Link
             href="/"
             className="
@@ -144,9 +133,6 @@ export default function NavbarPage() {
           </Link>
         </header>
 
-        {/* ─────────────────────────────────────────
-            Navigation
-        ───────────────────────────────────────── */}
         <nav className="px-5 py-8">
           <p className="mb-6 text-xs font-bold uppercase tracking-[0.25em] text-orange-500">
             Navigation
@@ -170,7 +156,6 @@ export default function NavbarPage() {
                   duration-300
                 "
               >
-                {/* Left orange line */}
                 <span
                   className="
                     absolute
@@ -218,7 +203,6 @@ export default function NavbarPage() {
           </div>
         </nav>
 
-        {/* Footer */}
         <div className="px-5 pb-8 pt-4">
           <div
             className="
@@ -237,7 +221,7 @@ export default function NavbarPage() {
             </span>
 
             <span className="text-xs text-white/30">
-              2026–27
+              2026-27
             </span>
           </div>
         </div>
