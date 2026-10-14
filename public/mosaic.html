@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caesar's Gambit — Save Caesar</title>
+    <meta
+      name="description"
+      content="Crack the cipher. Enter Ancient Rome. Save Caesar."
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23D4AF37'%3E%3Cpath d='M12 2L15 8H9L12 2zM12 22l-3-6h6l-3 6zM2 12l6-3v6L2 12zm20 0l-6 3V9l6 3z'/%3E%3C/svg%3E"
+    />
+
+    <!-- Google Fonts: Ancient Greek & Inscriptional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caesar+Dressing&family=GFS+Neohellenic:ital,wght@0,400;0,700;1,400;1,700&family=GFS+Didot&family=Cinzel:wght@600;700;800;900&family=Cinzel+Decorative:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <script type="module" crossorigin src="./assets/index-DqYOakWw.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-sCs9_4TX.css" />
+  </head>
+
+  <body id="top">
+    <!-- Full-Screen Fixed Background: Classical Roman Architectural Artwork -->
+    <div id="main-bg-backdrop" class="main-bg-backdrop" aria-hidden="true">
+      <div class="main-bg-image"></div>
+      <div class="main-bg-overlay"></div>
+    </div>
+
+    <!-- Full-Screen Fixed Background: Roman Constellation Dust Particles Canvas -->
+    <canvas
+      id="constellation-canvas"
+      class="constellation-canvas"
+      aria-hidden="true"
+    ></canvas>
+
+    <!-- Dynamic Scroll Progress Indicator with Roman Pugio Dagger -->
+    <div
+      id="scroll-progress-container"
+      class="scroll-progress-container"
+      aria-hidden="true"
+    >
+      <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+      <div id="scroll-progress-dagger" class="scroll-progress-dagger">
+        <svg
+          class="progress-dagger-svg"
+          viewBox="0 0 32 14"
+          width="30"
+          height="15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="2.5"
+            cy="7"
+            r="2"
+            fill="#D4AF37"
+            stroke="#8C6D1F"
+            stroke-width="0.6"
+          />
+          <rect x="3.5" y="6" width="3" height="2" rx="0.5" fill="#5A4512" />
+          <rect
+            x="6.5"
+            y="5.2"
+            width="4.2"
+            height="3.6"
+            rx="0.5"
+            fill="#8B1E1E"
+            stroke="#D4AF37"
+            stroke-width="0.6"
+          />
+          <path
+            d="M10.7 2.8 C11.2 5, 11.2 9, 10.7 11.2 L12.5 10.2 C13 8.5, 13 5.5, 12.5 3.8 Z"
+            fill="#D4AF37"
+            stroke="#FFE599"
+            stroke-width="0.5"
+          />
+          <path
+            d="M12.5 4.5 Q17 3.8, 22 5.2 L31.5 7 L22 8.8 Q17 10.2, 12.5 9.5 Z"
+            fill="url(#blade-gradient)"
+            stroke="#FFE599"
+            stroke-width="0.5"
+          />
+          <line
+            x1="13"
+            y1="7"
+            x2="26"
+            y2="7"
+            stroke="#8B1E1E"
+            stroke-width="0.8"
+            stroke-linecap="round"
+          />
+          <line
+            x1="14"
+            y1="5.2"
+            x2="29.5"
+            y2="6.8"
+            stroke="#FFFFFF"
+            stroke-width="0.6"
+            stroke-linecap="round"
+            opacity="0.95"
+          />
+          <defs>
+            <linearGradient
+              id="blade-gradient"
+              x1="12"
+              y1="4"
+              x2="31.5"
+              y2="7"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stop-color="#D9D2C5" />
+              <stop offset="50%" stop-color="#FFFFFF" />
+              <stop offset="100%" stop-color="#FFF4D4" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="dagger-spark-gleam"></span>
+      </div>
+    </div>
+
+    <!-- Atmospheric Light Leaks & Dark Vignette Overlay -->
+    <div class="ambient-vignette" aria-hidden="true"></div>
+    <div class="ambient-light-leak" aria-hidden="true"></div>
+
+    <!-- Standalone Stationary Brand Logo -->
+    <a href="#top" class="standalone-brand-logo" aria-label="Save Caesar Home">
+      <img
+        src="./assets/csi_sfit_logo-BJRmPeVj.png"
+        alt="CSI SFIT Insignia"
+        class="brand-logo-enlarged"
+        width="88"
+        height="88"
+      />
+    </a>
+
+    <main>
+      <!-- ========================================================================
+         SECTION 1: HERO SECTION (THE AWAKENING)
+         Dramatic reveal of the 3D cipher with a glowing title
+         ======================================================================== -->
+
+      <section class="scrolly-section hero-section" id="hero">
+        <div class="container hero-layout-grid">
+          <div class="hero-content-wrap">
+            <div class="hero-meta-pill">
+              <span class="badge badge-imperial-ribbon">
+                ROOM 318 · 44 BC
+              </span>
+            </div>
+
+            <h1 class="hero-title">
+              <span class="sr-only">CAESAR'S GAMBIT</span>
+              <img
+                src="./assets/caesar_gambit_header_logo-DrHrMu7V.png"
+                alt="CAESAR'S GAMBIT"
+                class="hero-title-img"
+                width="1027"
+                height="471"
+              />
+            </h1>
+
+            <p class="hero-subtitle">
+              The fate of Caesar, Emperor of Rome, is sealed by 23 stab wounds.
+              Can your team rewrite history?
+            </p>
+
+            <div
+              class="scroll-indicator-prompt"
+              aria-hidden="true"
+              style="
+                position: relative;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                transform: none;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                margin-top: 32px;
+              "
+            >
+              <span>SCROLL TO SAVE CAESAR</span>
+              <span class="scroll-chevron">↓</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================
+         SECTION 2: THE LORE (THE BLOOD OF POMPEY)
+         The cipher moves to the right side, slowly turning, revealing the story
+         ======================================================================== -->
+      <section class="scrolly-section lore-section" id="lore">
+        <!-- High-Performance WebGL Fluid Diffusion Shader Canvas (Blood of Pompey) -->
+        <canvas
+          id="blood-diffusion-canvas"
+          class="blood-diffusion-canvas"
+          aria-hidden="true"
+        ></canvas>
+
+        <div class="container lore-layout-grid">
+          <!-- Left: Dark Glassmorphic Lore Card -->
+          <article class="lore-text-column dark-glass-card">
+            <span class="section-eyebrow">THE MISSION</span>
+            <h2 class="section-title">THE IDES OF MARCH</h2>
+
+            <div class="roman-filigree-divider" aria-hidden="true">
+              <span class="filigree-line"></span>
+              <span class="filigree-gem">❖</span>
+              <span class="filigree-line"></span>
+            </div>
+
+            <p class="lore-prose-body">
+              On 15 March, 44 BC, conspirators moved to assassinate Julius
+              Caesar. History says he dies. Your team can change that.
+            </p>
+
+            <blockquote class="lore-intercept-quote">
+              “The Ides of March are here. What happens next is up to you.”
+            </blockquote>
+
+            <p class="lore-prose-body">
+              Solve physical puzzles, crack codes, and work together through a
+              3D Roman world to save Caesar.
+            </p>
+
+            <div class="lore-metadata-strip">
+              <span class="lore-metadata-item">ROOM: <strong>318</strong></span>
+              <span class="lore-metadata-item"
+                >SETTING: <strong>ANCIENT ROME</strong></span
+              >
+              <span class="lore-metadata-item"
+                >TEAM: <strong>4 PLAYERS</strong></span
+              >
+              <span class="lore-metadata-item"
+                >MISSION: <strong>SAVE CAESAR</strong></span
+              >
+            </div>
+          </article>
+
+          <!-- Right: Clear stage where 3D cipher wheel is positioned and turning -->
+          <div class="lore-3d-stage" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- ========================================================================
+         SECTION 3: THE CHARACTERS & FACTIONS
+         Roman statues or pillars subtly fade into background, faction monoliths
+         ======================================================================== -->
+      <section class="scrolly-section factions-section" id="factions">
+        <!-- Subtle Background Roman Statues & Pillars Scenery -->
+        <div class="factions-bg-scenery" aria-hidden="true">
+          <div class="pillar-column pillar-left">
+            <img
+              src="./assets/roman_column-CHvEr6U4.jpeg"
+              alt="Roman Column"
+              loading="lazy"
+            />
+          </div>
+          <div class="roman-statue-backdrop">
+            <img
+              src="./assets/caesar_statue_louvre_nobg-BuHXR6dI.png"
+              alt="Julius Caesar Statue"
+              loading="lazy"
+            />
+            <div class="statue-crimson-aura"></div>
+          </div>
+          <div class="pillar-column pillar-right">
+            <img
+              src="./assets/roman_column-CHvEr6U4.jpeg"
+              alt="Roman Column"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="container">
+          <header class="section-header text-center">
+            <span class="section-eyebrow">PHASE 1 · HARDWARE</span>
+            <h2 class="section-title">CRACK THE CIPHER</h2>
+            <div class="roman-filigree-divider centered" aria-hidden="true">
+              <span class="filigree-line"></span>
+              <span class="filigree-gem">❖</span>
+              <span class="filigree-line"></span>
+            </div>
+            <p class="section-subtitle" style="margin: 0 auto">
+              Decode the Caesar Cipher to reveal the map.
+            </p>
+          </header>
+
+          <!-- 4 Monolithic Character / Faction Cards -->
+          <div class="factions-grid">
+            <!-- 1. Player A -->
+            <article class="faction-card">
+              <div class="faction-card-header">
+                <div class="faction-sigil-badge">A</div>
+                <span class="faction-rank-badge">PAIR 1 · CIPHER</span>
+              </div>
+              <div class="faction-card-body">
+                <span class="faction-class-label"
+                  >CRYPTOGRAPHIC SPECIALIST</span
+                >
+                <h3 class="faction-title">Player A</h3>
+                <p class="faction-desc">Decode clues and unlock the path.</p>
+              </div>
+            </article>
+
+            <!-- 2. Player B -->
+            <article class="faction-card">
+              <div class="faction-card-header">
+                <div class="faction-sigil-badge">B</div>
+                <span class="faction-rank-badge">PAIR 1 · LABYRINTH</span>
+              </div>
+              <div class="faction-card-body">
+                <span class="faction-class-label">MAZE NAVIGATOR</span>
+                <h3 class="faction-title">Player B</h3>
+                <p class="faction-desc">
+                  Navigate the maze and find your teammate.
+                </p>
+              </div>
+            </article>
+
+            <!-- 3. Player C -->
+            <article class="faction-card">
+              <div class="faction-card-header">
+                <div class="faction-sigil-badge">C</div>
+                <span class="faction-rank-badge">PAIR 2 · EVASION</span>
+              </div>
+              <div class="faction-card-body">
+                <span class="faction-class-label">SURVIVAL OPERATIVE</span>
+                <h3 class="faction-title">Player C</h3>
+                <p class="faction-desc">
+                  Avoid enemies and unlock the next path.
+                </p>
+              </div>
+            </article>
+
+            <!-- 4. Player D -->
+            <article class="faction-card">
+              <div class="faction-card-header">
+                <div class="faction-sigil-badge">D</div>
+                <span class="faction-rank-badge">PAIR 2 · BREACH</span>
+              </div>
+              <div class="faction-card-body">
+                <span class="faction-class-label">MECHANICAL BREACHER</span>
+                <h3 class="faction-title">Player D</h3>
+                <p class="faction-desc">
+                  Solve logic puzzles and reunite with your teammate.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================
+         SECTION 4: PHASE 2 · PARTNER UP
+         Two synchronized duo monoliths activating the dual Curia levers
+         ======================================================================== -->
+      <section class="scrolly-section factions-section" id="phase-2">
+        <!-- Subtle Background Roman Statues & Pillars Scenery -->
+        <div class="factions-bg-scenery" aria-hidden="true">
+          <div class="pillar-column pillar-left">
+            <img
+              src="./assets/roman_column-CHvEr6U4.jpeg"
+              alt="Roman Column"
+              loading="lazy"
+            />
+          </div>
+          <div class="roman-statue-backdrop">
+            <img
+              src="./assets/caesar_statue_louvre_nobg-BuHXR6dI.png"
+              alt="Julius Caesar Statue"
+              loading="lazy"
+            />
+            <div class="statue-crimson-aura"></div>
+          </div>
+          <div class="pillar-column pillar-right">
+            <img
+              src="./assets/roman_column-CHvEr6U4.jpeg"
+              alt="Roman Column"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="container">
+          <header class="section-header text-center">
+            <span class="section-eyebrow">PHASE 2 · 3D GAME</span>
+            <h2 class="section-title">ENTER THE MAP</h2>
+            <div class="roman-filigree-divider centered" aria-hidden="true">
+              <span class="filigree-line"></span>
+              <span class="filigree-gem">❖</span>
+              <span class="filigree-line"></span>
+            </div>
+            <p class="section-subtitle" style="margin: 0 auto">
+              Explore Ancient Rome, solve challenges, and reunite with your
+              team.
+            </p>
+          </header>
+
+          <!-- 2 Monolithic Duo Cards -->
+          <div class="factions-grid factions-grid-duo">
+            <!-- 1. Players A & B -->
+            <article class="faction-card">
+              <div class="faction-card-header">
+                <div class="faction-sigil-badge">A+B</div>
+                <span class="faction-rank-badge">SYNERGY DUO I</span>
+              </div>
+              <div class="faction-card-body">
+                <span class="faction-class-label"
+                  >DUAL LEVER MECHANISM · ALPHA</span
+                >
+                <h3 class="faction-title">Players A &amp; B</h3>
+                <p class="faction-desc">Coordinate to activate the lever.</p>
+              </div>
+            </article>
+
+            <!-- 2. Players C & D -->
+            <article class="faction-card">
+              <div class="faction-card-header">
+                <div class="faction-sigil-badge">C+D</div>
+                <span class="faction-rank-badge">SYNERGY DUO II</span>
+              </div>
+              <div class="faction-card-body">
+                <span class="faction-class-label"
+                  >DUAL LEVER MECHANISM · BETA</span
+                >
+                <h3 class="faction-title">Players C &amp; D</h3>
+                <p class="faction-desc">Work together to trigger the lever.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================
+         SECTION 5: FINAL PHASE · SAVE CAESAR
+         All four players reunite for the final challenge to break Caesar free
+         ======================================================================== -->
+      <section class="scrolly-section factions-section" id="final-phase">
+        <!-- Subtle Background Roman Statues & Pillars Scenery -->
+        <div class="factions-bg-scenery" aria-hidden="true">
+          <div class="pillar-column pillar-left">
+            <img
+              src="./assets/roman_column-CHvEr6U4.jpeg"
+              alt="Roman Column"
+              loading="lazy"
+            />
+          </div>
+          <div class="roman-statue-backdrop">
+            <img
+              src="./assets/caesar_statue_louvre_nobg-BuHXR6dI.png"
+              alt="Julius Caesar Statue"
+              loading="lazy"
+            />
+            <div class="statue-crimson-aura"></div>
+          </div>
+          <div class="pillar-column pillar-right">
+            <img
+              src="./assets/roman_column-CHvEr6U4.jpeg"
+              alt="Roman Column"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="container">
+          <header class="section-header text-center">
+            <span class="section-eyebrow">PHASE 3 · FINAL CHALLENGE</span>
+            <h2 class="section-title">CHANGE HISTORY</h2>
+            <div class="roman-filigree-divider centered" aria-hidden="true">
+              <span class="filigree-line"></span>
+              <span class="filigree-gem">❖</span>
+              <span class="filigree-line"></span>
+            </div>
+            <p class="section-subtitle" style="margin: 0 auto">
+              Bring your team together for the final hardware puzzle. Caesar’s
+              fate is in your hands.
+            </p>
+          </header>
+
+          <!-- Final Phase Monolithic Showcase Card -->
+          <div class="factions-grid factions-grid-solo">
+            <article class="faction-card faction-card-highlight">
+              <div class="faction-card-header">
+                <div class="faction-sigil-badge final-badge">SPQR</div>
+                <span class="faction-rank-badge final-rank"
+                  >FULL SQUAD · ALL 4 PLAYERS</span
+                >
+              </div>
+              <div class="faction-card-body">
+                <span class="faction-class-label"
+                  >FINAL CLIMACTIC CHALLENGE</span
+                >
+                <h3 class="faction-title">Save Caesar</h3>
+                <p class="faction-desc">
+                  Solve the final challenge. Save Caesar.
+                </p>
+
+                <!-- Squad Roster Strip inside the card -->
+                <!-- <div class="final-squad-roster">
+                  <div class="squad-roster-pill">
+                    <span class="roster-sigil">A</span>
+                    <span class="roster-text">Player A</span>
+                  </div>
+                  <div class="squad-roster-link">+</div>
+                  <div class="squad-roster-pill">
+                    <span class="roster-sigil">B</span>
+                    <span class="roster-text">Player B</span>
+                  </div>
+                  <div class="squad-roster-link">+</div>
+                  <div class="squad-roster-pill">
+                    <span class="roster-sigil">C</span>
+                    <span class="roster-text">Player C</span>
+                  </div>
+                  <div class="squad-roster-link">+</div>
+                  <div class="squad-roster-pill">
+                    <span class="roster-sigil">D</span>
+                    <span class="roster-text">Player D</span>
+                  </div>
+                </div> -->
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================
+         SECTION 6: FOOTER & CLIMAX (THE FINAL GAMBIT)
+         Call to Action with radiating centered 3D cipher anchor
+         ======================================================================== -->
+      <section class="scrolly-section footer-section" id="climax">
+        <div class="container footer-content-wrap">
+          <span class="badge badge-imperial-ribbon">✦ YOUR MOVE, ROME ✦</span>
+
+          <h2 class="footer-title">
+            THE FATE OF CAESAR <br />
+            <span class="title-crimson-glow">IS IN YOUR HANDS</span>
+          </h2>
+
+          <div class="roman-filigree-divider centered" aria-hidden="true">
+            <span class="filigree-line"></span>
+            <span class="filigree-gem">❖</span>
+            <span class="filigree-line"></span>
+          </div>
+
+          <p class="footer-desc">
+            Will your squad master the cryptographic cipher, conquer the
+            physical machine escapements, and prevent the assassination that
+            forged an empire?
+          </p>
+
+          <div class="footer-actions">
+            <a href="#hero" class="btn btn-secondary">
+              <span>BACK TO THE START ↑</span>
+            </a>
+          </div>
+
+          <div class="colophon-strip">
+            <div>
+              <span class="colophon-spqr">S · P · Q · R</span> // CAESAR’S
+              GAMBIT
+            </div>
+            <div>4 PLAYERS · HARDWARE + SOFTWARE</div>
+            <div>CAN YOU CHANGE HISTORY?</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Master JavaScript Application -->
+  </body>
+</html>
